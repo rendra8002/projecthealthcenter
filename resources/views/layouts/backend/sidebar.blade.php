@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{ asset('backend/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ asset('backend/dist/img/healthcenter.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Admin Health Center</span>
     </a>
     
@@ -12,7 +12,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('hero.index') }}" class="nav-link {{ request()->routeis('hero.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -21,7 +21,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('aboutus.index') }}" class="nav-link {{ request()->routeis('aboutus.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 About Us
@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('services.index') }}" class="nav-link {{ request()->routeis('services.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-hands-helping"></i>
               <p>
                 Services
@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('gallery.index') }}" class="nav-link {{ request()->routeis('gallery.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-image"></i>
               <p>
                 Gallery
@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('testimonials.index') }}" class="nav-link {{ request()->routeis('testimonials.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-comment"></i>
               <p>
                 Testimonial
@@ -57,16 +57,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('sejarah.index') }}" class="nav-link {{ request()->routeis('sejarah.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-history"></i>
               <p>
-                History
+                Sejarah
                 {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('tenagakerja.index') }}" class="nav-link {{ request()->routeis('tenagakerja.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-briefcase"></i>
               <p>
                 Tenaga Kerja
@@ -75,7 +75,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('partners.index') }}" class="nav-link {{ request()->routeis('partners.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-handshake"></i>
               <p>
                 Partners
@@ -84,7 +84,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('mediasocial.index') }}" class="nav-link {{ request()->routeis('mediasocial.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-share-alt"></i>
               <p>
                 Media Social
