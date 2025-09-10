@@ -6,5 +6,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('adminpanel/hero', function () {
-    return view('backend.hero.index');
+    return view('pages.backend.hero.index');
 });
