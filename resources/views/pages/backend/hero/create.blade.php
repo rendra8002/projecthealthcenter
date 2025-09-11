@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="masukkan email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
