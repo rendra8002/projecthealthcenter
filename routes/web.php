@@ -11,9 +11,6 @@ use App\Http\Controllers\Backend\MediaSocialController;
 use App\Http\Controllers\Backend\TenagaKerjaController;
 use App\Http\Controllers\Backend\TestimonialsController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('adminpanel/hero', [HeroController::class, 'index'])->name('hero.index');
 Route::get('adminpanel/aboutus', [AboutUsController::class, 'index'])->name('aboutus.index');
 Route::get('adminpanel/services', [ServicesController::class, 'index'])->name('services.index');
