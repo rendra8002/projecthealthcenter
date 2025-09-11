@@ -11,38 +11,81 @@
                 <div class="row">
                     <div class="col-lg-12 ">
                         <div class="card">
-                        </div>
-                        {{-- konten --}}
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <h5 class="card-title">Welcome To Dashboard Page</h5>
-
-                                <p class="card-text">
-                                  Ini adalah halaman dashboard admin health center.
-                                    Silakan gunakan menu di sebelah kiri untuk mengelola data dan fitur yang tersedia.<br>
-                                    <br>
-                                    Di halaman dashboard ini, Anda dapat memantau statistik dan informasi penting terkait Health Center. Pastikan untuk selalu memperbarui data agar sistem tetap akurat dan up-to-date.<br>
-                                    <br>
-                                    Fitur yang tersedia meliputi:<br>
-                                    <ul>
-                                    <li>Manajemen Data Pasien</li>
-                                    <li>Manajemen Jadwal Dokter</li>
-                                    <li>Rekapitulasi Kunjungan</li>
-                                    <li>Laporan Kesehatan</li>
-                                    </ul>
-                                    <br>
-                                    Untuk memulai, pilih salah satu menu di sidebar kiri sesuai kebutuhan Anda. Jika membutuhkan bantuan, silakan akses dokumentasi atau hubungi admin.<br>
-                                    Selamat bekerja dan semoga sukses dalam mengelola Health Center!
-                                </p>
+                            <div class="card-header">
+                                <h3 class="card-title">Setting Halaman Hero</h3>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th style="width: 250px">Photo</th>
+                                            <th>Tittle</th>
+                                            <th style="width: 200px">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Update software</td>
+                                            <td>
+                                                isi data
+                                            </td>
+                                            <td>
+                                                <button></button>
+                                                <button></button>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>Clean database</td>
+                                            <td>
+                                                isi data
+                                            </td>
+                                            <td>
+                                                <button></button>
+                                                <button></button>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.</td>
+                                            <td>Cron job running</td>
+                                            <td>
+                                                isi data
+                                            </td>
+                                            <td>
+                                                <button></button>
+                                                <button></button>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.</td>
+                                            <td>Fix and squish bugs</td>
+                                            <td>
+                                                isi data
+                                            </td>
+                                            <td>
+                                                <button></button>
+                                                <button></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        {{-- end konten --}}
+                        <!-- /.card -->
                     </div>
                 </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
