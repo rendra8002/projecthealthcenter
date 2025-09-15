@@ -12,7 +12,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('hero.index') }}" class="nav-link {{ request()->routeis('hero.index') ? 'active' : '' }}">
+            <a href="{{ route('hero.index') }}" class="nav-link {{ request()->routeis('hero.index','hero.create','hero.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -21,7 +21,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('aboutus.index') }}" class="nav-link {{ request()->routeis('aboutus.index') ? 'active' : '' }}">
+            <a href="{{ route('aboutus.index') }}" class="nav-link {{ request()->routeis('aboutus.index','aboutus.create','aboutus.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 About Us
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('tenagakerja.index') }}" class="nav-link {{ request()->routeis('tenagakerja.index') ? 'active' : '' }}">
+            <a href="{{ route('tenagakerja.index') }}" class="nav-link {{ request()->routeis('tenagakerja.index','tenagakerja.edit','tenagakerja.create') ? 'active' : '' }}">
               <i class="nav-icon fas fa-briefcase"></i>
               <p>
                 Tenaga Kerja

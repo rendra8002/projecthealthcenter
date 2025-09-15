@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MediaSocialController extends Controller
+class ContactUsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.backend.mediasocial.index');
+        return view('pages.frontend.contactus.index');
     }
 
     /**

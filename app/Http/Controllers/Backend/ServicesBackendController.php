@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\BacKend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TestimonialsController extends Controller
+class ServicesBackendController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.backend.testimonials.index');
+        return view('pages.backend.services.index');
     }
 
     /**

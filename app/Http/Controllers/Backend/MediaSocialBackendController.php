@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TenagaKerjaController extends Controller
+class MediaSocialBackendController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.backend.tenagakerja.index');
+        return view('pages.backend.mediasocial.index');
     }
 
     /**

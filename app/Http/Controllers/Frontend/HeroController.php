@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
+use App\Models\hero;
+use App\Models\aboutus;
+use App\Models\tenagakerja;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class SejarahController extends Controller
+class HeroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.backend.sejarah.index');
+        $heroes = hero::all();
+        $aboutuses = aboutus::first();
+        $tenagakerjas = tenagakerja::all(); // ambil data dokter
+
+        return view('pages.frontend.hero.index', compact('heroes', 'aboutuses', 'tenagakerjas'));
     }
 
     /**
