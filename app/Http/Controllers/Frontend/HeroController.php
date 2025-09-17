@@ -19,7 +19,7 @@ class HeroController extends Controller
         $aboutuses = aboutus::first();
         $tenagakerjas = tenagakerja::all(); // ambil data dokter
 
-        return view('pages.frontend.hero.index', compact('heroes', 'aboutuses', 'tenagakerjas'));
+        return view('pages.frontend.message.index');
     }
 
     /**
