@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Models\hero;
+use App\Models\Hero;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -14,8 +14,7 @@ class HeroBackendController extends Controller
      */
     public function index()
     {
-        $heroes = hero::all();
-
+        $heroes = Hero::all();
         return view('pages.backend.hero.index', compact('heroes'));
     }
 
@@ -24,9 +23,7 @@ class HeroBackendController extends Controller
      */
     public function create()
     {
-        // ambil data dari table
-        $heroes = hero::all();
-        return view('pages.backend.hero.create', compact('heroes'));
+        return view('pages.backend.hero.create');
     }
 
     /**
@@ -34,25 +31,25 @@ class HeroBackendController extends Controller
      */
     public function store(Request $request)
     {
-
-        request()->validate([
-            'photo' => 'nullable',
-            'title' => 'nullable',
-            'button_text' => 'nullable',
-            'button_link' => 'nullable',
+        // Validasi input sederhana
+        $request->validate([
+            'title' => 'required',
+            'button_text' => 'required',
+            'button_link' => 'required',
+            'photo' => 'required|image',
         ]);
 
-        $heroes = [
+        $datahero = [
             'title' => $request->title,
             'button_text' => $request->button_text,
             'button_link' => $request->button_link,
         ];
 
         if ($request->hasFile('photo')) {
-            $heroes['photo'] = $request->file('photo')->store('images', 'public');
+            $datahero['photo'] = $request->file('photo')->store('images_hero', 'public');
         }
 
-        hero::create($heroes);
+        Hero::create($datahero);
 
         return redirect()->route('hero.index');
     }
@@ -62,13 +59,7 @@ class HeroBackendController extends Controller
      */
     public function show(string $id)
     {
-        $hero = hero::find($id);
-
-        if ($hero) {
-            return view('pages.backend.hero.show', compact('hero'));
-        }
-
-        return redirect()->route('hero.index')->with('error', 'Data hero tidak ditemukan.');
+        //
     }
 
     /**
@@ -76,21 +67,20 @@ class HeroBackendController extends Controller
      */
     public function edit(string $id)
     {
-        $heroes = hero::find($id);
+        $heroes = Hero::find($id);
 
         if ($heroes != null) {
-            session(['data yg trakhir diedit' => $id]);
-
+            session(['last_edited_hero_id' => $id]);
             return view('pages.backend.hero.edit', compact('heroes'));
         }
 
-        $lastId = session('data yg trakhir diedit');
+        $lastId = session('last_edited_hero_id');
 
-        //jika lastid dan data user keduanya terpenuhi (keduanya ada)
-        if ($lastId && hero::find($lastId)) {
-
-            return redirect('adminpanel/hero/' . $lastId . '/edit');
+        if ($lastId && Hero::find($lastId)) {
+            return redirect()->route('hero.edit', $lastId);
         }
+
+        return redirect()->route('hero.index')->with('error', 'Data hero tidak ditemukan.');
     }
 
     /**
@@ -98,56 +88,54 @@ class HeroBackendController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
-
         $heroes = Hero::find($id);
 
-        if ($heroes != null) {
-            $request->validate([
-                'title'        => 'nullable',
-                'photo'        => 'nullable',
-                'button_text'  => 'nullable',
-                'button_link'  => 'nullable',
-            ]);
-
-            $heroes->title = $request->title;
-            $heroes->button_text = $request->button_text;
-            $heroes->button_link = $request->button_link;
-
-            // cek ada file baru atau tidak
-            if ($request->hasFile('photo')) {
-                if ($heroes->photo && Storage::disk('public')->exists($heroes->photo)) {
-                    Storage::disk('public')->delete($heroes->photo);
-                }
-
-                $path = $request->file('photo')->store('images', 'public');
-                $heroes->photo = $path;
-            }
-
-            $heroes->save();
-
-            return redirect()->route('hero.index')->with('success', 'Hero berhasil diperbarui.');
+        if (!$heroes) {
+            return redirect()->route('hero.index')->with('error', 'Hero tidak ditemukan.');
         }
-        $heroes->save();
-        return redirect()->route('hero.index')->with('error', 'Data hero tidak ditemukan.');
-    }
 
+        $request->validate([
+            'title' => 'sometimes|required',
+            'button_text' => 'sometimes|required',
+            'button_link' => 'sometimes|required',
+            'photo' => 'nullable|image',
+        ]);
+
+        $heroes->title = $request->title;
+        $heroes->button_text = $request->button_text;
+        $heroes->button_link = $request->button_link;
+
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama
+            if ($heroes->photo && Storage::disk('public')->exists($heroes->photo)) {
+                Storage::disk('public')->delete($heroes->photo);
+            }
+            $heroes->photo = $request->file('photo')->store('images','images_hero', 'public');
+        }
+
+        $heroes->save();
+
+        return redirect()->route('hero.index')->with('success', 'Hero berhasil diperbarui.');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $heroes = hero::find($id);
+        $heroes = Hero::find($id);
 
-        if ($heroes && $heroes->photo && Storage::disk('public')->exists($heroes->photo)) {
-            Storage::disk('public')->delete($heroes->photo);
-        }
+        if ($heroes != null) {
+            // Cek apakah ada file photo yang tersimpan
+            if ($heroes->photo && Storage::disk('public')->exists($heroes->photo)) {
+                Storage::disk('public')->delete($heroes->photo);
+            }
 
-        if ($heroes) {
             $heroes->delete();
+
+            return redirect()->route('hero.index')->with('success', 'Hero berhasil dihapus.');
         }
 
-        return redirect()->route('hero.index');
+        return redirect()->route('hero.index')->with('error', 'Hero tidak ditemukan.');
     }
 }
