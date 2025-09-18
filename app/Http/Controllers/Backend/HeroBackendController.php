@@ -90,7 +90,7 @@ class HeroBackendController extends Controller
     {
         $heroes = Hero::find($id);
 
-        if (!$heroes) {
+        if ($heroes == null) {
             return redirect()->route('hero.index')->with('error', 'Hero tidak ditemukan.');
         }
 

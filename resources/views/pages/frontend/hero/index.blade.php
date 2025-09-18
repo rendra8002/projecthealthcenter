@@ -159,7 +159,6 @@
                     <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
                         <img src="{{ asset('assets/images/news-image1.jpg') }}" class="img-responsive" alt="">
                         <div class="news-info">
-                            <span>March 08, 2018</span>
                             <h3>>About Amazing Technology</h3>
                             <p>Maecenas risus neque, placerat volutpat tempor ut, vehicula et felis.</p>
                         </div>
@@ -173,7 +172,6 @@
                         <img src="{{ asset('assets/images/news-image2.jpg') }}" class="img-responsive" alt="">
 
                         <div class="news-info">
-                            <span>February 20, 2018</span>
                             <h3>Introducineg a new healing process</h3>
                             <p>Fusce vel sm finibus, rhoncus massa non, aliquam velit. Nam et est ligula.</p>
                         </div>
@@ -186,7 +184,6 @@
                         <img src="{{ asset('assets/images/news-image3.jpg') }}" class="img-responsive" alt="">
 
                         <div class="news-info">
-                            <span>January 27, 2018</span>
                             <h3>Review Annual Medical Research</h3>
                             <p>Vivamus non nulla semper diam cursus maximus. Pellentesque dignissim.</p>
                         </div>
@@ -265,7 +262,7 @@
                     <!-- SECTION TITLE -->
                     <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
                         <h2 class="col text-center">Our Services</h2>
-                        <p>We provide professional healthcare services for your needs</p>
+                        <p style="text-align: center;">We provide professional healthcare services for your needs</p>
                     </div>
                 </div>
 

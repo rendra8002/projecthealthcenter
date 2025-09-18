@@ -26,7 +26,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($aboutuses as $aboutus)
+                                        @forelse ($aboutuses as $aboutus)
                                             <tr>
                                                 <td>1.</td>
                                                 <td>
@@ -56,7 +56,12 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center">Data About Us belum tersedia</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -72,5 +77,4 @@
     <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    @include('layouts.backend.footer')
 @endsection

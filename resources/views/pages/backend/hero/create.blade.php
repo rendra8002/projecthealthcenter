@@ -1,5 +1,6 @@
 @extends('layouts.backend.app')
 @section('content')
+
     <div class="card card-primary content-wrapper">
         <div class="card-header">
             <h3 class="card-title">Halaman Edit Hero/Dashboard</h3>
