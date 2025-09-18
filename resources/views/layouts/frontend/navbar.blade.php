@@ -19,10 +19,10 @@
                      <li><a href="#top" class="smoothScroll">Home</a></li>
                      <li><a href="#about" class="smoothScroll">About Us</a></li>
                      <li><a href="#team" class="smoothScroll">Doctors</a></li>
-                     <li><a href="#gallery" class="smoothScroll">Gallery</a></li>
                      <li><a href="#sejarah" class="smoothScroll">News</a></li>
+                     <li><a href="#contact" class="smoothScroll">Contact</a></li>
 
-                     <li class="appointment-btn"><a href="#contact">Contact Us</a></li>
+                     <li class="appointment-btn"><a href="#contact">Make an Appointment</a></li>
                  </ul>
              </div>
 

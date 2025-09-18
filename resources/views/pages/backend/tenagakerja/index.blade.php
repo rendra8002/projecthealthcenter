@@ -30,7 +30,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tenagakerjas as $index => $tenagakerja)
+                                        @forelse ($tenagakerjas as $index => $tenagakerja)
                                             <tr>
                                                 <td>{{ $index + 1 }}.</td>
                                                 <td>
@@ -55,14 +55,17 @@
                                                             Hapus
                                                         </button>
                                                     </form>
-
                                                     <a href="{{ route('tenagakerja.edit', $tenagakerja->id) }}"
                                                         class="btn btn-warning btn-sm ml-2">
                                                         Edit
                                                     </a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center">Data dokter belum tersedia</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -77,5 +80,4 @@
     </div>
     <!-- /.content-wrapper -->
 
-    @include('layouts.backend.footer')
 @endsection

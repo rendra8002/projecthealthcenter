@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// Frontend Controllers
+use App\Http\Controllers\Frontend\HeroController;
+
 // Backend Controllers
 use App\Http\Controllers\Backend\HeroBackendController;
 use App\Http\Controllers\Backend\AboutUsBackendController;
@@ -12,17 +15,6 @@ use App\Http\Controllers\Backend\MediaSocialBackendController;
 use App\Http\Controllers\Backend\TenagaKerjaBackendController;
 use App\Http\Controllers\Backend\TestimonialsBackendController;
 
-// Frontend Controllers
-use App\Http\Controllers\Frontend\HeroController;
-use App\Http\Controllers\Frontend\AboutUsController;
-use App\Http\Controllers\Frontend\GalleryController;
-use App\Http\Controllers\Frontend\SejarahController;
-use App\Http\Controllers\Frontend\PartnersController;
-use App\Http\Controllers\Frontend\ServicesController;
-use App\Http\Controllers\Frontend\MediaSocialController;
-use App\Http\Controllers\Frontend\TenagaKerjaController;
-use App\Http\Controllers\Frontend\TestimonialsController;
-use App\Http\Controllers\Frontend\ContactUsController;
 
 
 Route::get('/hero', [HeroController::class, 'index'])->name('fronthero.index');
@@ -53,10 +45,51 @@ Route::prefix('adminpanel')->group(function () {
     Route::get('/tenagakerja/{id}/edit', [TenagaKerjaBackendController::class, 'edit'])->name('tenagakerja.edit');
     Route::put('/tenagakerja/update/{id}', [TenagaKerjaBackendController::class, 'update'])->name('tenagakerja.update');
 
+    //servis
     Route::get('/services', [ServicesBackendController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServicesBackendController::class, 'create'])->name('services.create');
+    Route::post('/services/store', [ServicesBackendController::class, 'store'])->name('services.store');
+    Route::delete('/services/services/{id}', [ServicesBackendController::class, 'destroy'])->name('services.delete');
+    Route::get('/services/{id}/edit', [ServicesBackendController::class, 'edit'])->name('services.edit');
+    Route::put('/services/update/{id}', [ServicesBackendController::class, 'update'])->name('services.update');
+
+    // route testimonial
     Route::get('/testimonials', [TestimonialsBackendController::class, 'index'])->name('testimonials.index');
+    Route::get('/testimonials/create', [TestimonialsBackendController::class, 'create'])->name('testimonials.create');
+    Route::post('/testimonials/store', [TestimonialsBackendController::class, 'store'])->name('testimonials.store');
+    Route::delete('/testimonials/delete{id}', [TestimonialsBackendController::class, 'destroy'])->name('testimonials.delete');
+    Route::get('/testimonials/{id}/edit', [TestimonialsBackendController::class, 'edit'])->name('testimonials.edit');
+    Route::put('/testimonials/update/{id}', [TestimonialsBackendController::class, 'update'])->name('testimonials.update');
+
+    // route mediasocial
     Route::get('/mediasocial', [MediaSocialBackendController::class, 'index'])->name('mediasocial.index');
+    Route::get('/mediasocial/create', [MediaSocialBackendController::class, 'create'])->name('mediasocial.create');
+    Route::post('/mediasocial/store', [MediaSocialBackendController::class, 'store'])->name('mediasocial.store');
+    Route::delete('/mediasocial/delete{id}', [MediaSocialBackendController::class, 'destroy'])->name('mediasocial.delete'); 
+    Route::get('/mediasocial/{id}/edit', [MediaSocialBackendController::class, 'edit'])->name('mediasocial.edit');
+    Route::put('/mediasocial/update/{id}', [MediaSocialBackendController::class, 'update'])->name('mediasocial.update');
+
+    // route partners
     Route::get('/partners', [PartnersBackendController::class, 'index'])->name('partners.index');
+    Route::get('/partners/create', [PartnersBackendController::class, 'create'])->name('partners.create');
+    Route::post('/partners/store', [PartnersBackendController::class, 'store'])->name('partners.store');
+    Route::delete('/partners/delete/{id}', [PartnersBackendController::class, 'destroy'])->name('partners.delete');
+    Route::get('/partners/{id}/edit', [PartnersBackendController::class, 'edit'])->name('partners.edit');
+    Route::put('/partners/update/{id}', [PartnersBackendController::class, 'update'])->name('partners.update');
+    
+    // route gallery
     Route::get('/gallery', [GalleryBackendController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery/create', [GalleryBackendController::class, 'create'])->name('gallery.create');
+    Route::post('/gallery/store', [GalleryBackendController::class, 'store'])->name('gallery.store');
+    Route::delete('/gallery/delete{id}', [GalleryBackendController::class, 'destroy'])->name('gallery.delete');
+    Route::get('/gallery/{id}/edit', [GalleryBackendController::class, 'edit'])->name('gallery.edit');
+    Route::put('/gallery/update/{id}', [GalleryBackendController::class, 'update'])->name('gallery.update');
+
+    //crud sejarah
     Route::get('/sejarah', [SejarahBackendController::class, 'index'])->name('sejarah.index');
+    Route::get('/sejarah/create', [SejarahBackendController::class, 'create'])->name('sejarah.create');
+    Route::post('/sejarah/store', [SejarahBackendController::class, 'store'])->name('sejarah.store');
+    Route::get('/sejarah/delete{id}', [SejarahBackendController::class, 'destroy'])->name('sejarah.delete');
+    Route::get('/sejarah/{id}/edit', [SejarahBackendController::class, 'edit'])->name('sejarah.edit');
+    Route::put('/sejarah/update/{id}', [SejarahBackendController::class, 'update'])->name('sejarah.update');
 });
