@@ -77,4 +77,5 @@
     <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    @include('layouts.backend.footer')
 @endsection

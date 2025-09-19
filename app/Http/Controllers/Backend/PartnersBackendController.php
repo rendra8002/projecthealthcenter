@@ -13,7 +13,7 @@ class PartnersBackendController
      */
     public function index()
     {
-        $partners = Partner::latest()->get();
+        $partners = Partner::all();
         return view('pages.backend.partners.index', compact('partners'));
     }
 

@@ -26,8 +26,6 @@
 
         @yield('content')
 
-        @include('layouts.backend.footer')
-
         <!-- REQUIRED SCRIPTS -->
 
         <img id="preview" src="#" alt="Preview" style="display:none; max-width:200px; margin-top:10px;" />
@@ -56,6 +54,12 @@
         <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                bsCustomFileInput.init();
+            });
+        </script>
     </div>
 </body>
 

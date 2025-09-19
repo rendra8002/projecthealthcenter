@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('aboutuses', function (Blueprint $table) {
             $table->id();
             $table->string('photo');
-            $table->string('description');
+            $table->text('description');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

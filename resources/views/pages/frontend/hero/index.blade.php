@@ -2,69 +2,47 @@
 @section('content')
     <!-- HOME -->
     <section id="top" class="slider" data-stellar-background-ratio="0.5">
-        <br>
         <div class="container">
             <div class="row">
-
                 <div class="owl-carousel owl-theme">
-                    <div class="item item-first">
-                        <div class="caption">
-                            <div class="col-md-offset-1 col-md-10">
-                                <h3>Let's make your life happier</h3>
-                                <h1>Healthy Living</h1>
-                                <a href="{{ asset('assets/#team') }}" class="section-btn btn btn-default smoothScroll">Meet
-                                    Our Doctors</a>
+                    @foreach ($heroes as $hero)
+                        <div class="item"
+                            style="background-image: url('{{ $hero->photo ? asset('storage/' . $hero->photo) : asset('assets/default.jpg') }}');">
+                            <div class="caption">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <h3>{{ $hero->subtitle }}</h3>
+                                    <h1>{{ $hero->title }}</h1>
+                                    <a href="{{ $hero->button_link }}" class="section-btn btn btn-default smoothScroll">
+                                        {{ $hero->button_text }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="item item-second">
-                        <div class="caption">
-                            <div class="col-md-offset-1 col-md-10">
-                                <h3>Aenean luctus lobortis tellus</h3>
-                                <h1>New Lifestyle</h1>
-                                <a href="{{ asset('assets/#about') }}"
-                                    class="section-btn btn btn-default btn-gray smoothScroll">More About Us</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item item-third">
-                        <div class="caption">
-                            <div class="col-md-offset-1 col-md-10">
-                                <h3>Pellentesque nec libero nisi</h3>
-                                <h1>Your Health Benefits</h1>
-                                <a href="{{ asset('assets/#sejarah') }}"
-                                    class="section-btn btn btn-default btn-blue smoothScroll">Read Stories</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
             </div>
         </div>
-        <br>
     </section>
 
     <!-- ABOUT -->
-    <section id="about">
+    <section id="about"
+        style="background: url('{{ $about && $about->photo ? asset('storage/' . $about->photo) : asset('assets/images/default-bg.jpg') }}') no-repeat top center;
+        background-size: cover; padding-top:150px; padding-bottom:150px;">
         <br>
         <div class="container">
             <div class="row">
-
-                <div class="col-md-6 col-sm-6">
-                    <div class="about-info">
-                        <h2 class="wow fadeInUp" data-wow-delay="0.6s">Welcome to Your <i class="fa fa-h-square"></i>ealth
-                            Center</h2>
-                        <div class="wow fadeInUp" data-wow-delay="0.8s">
-                            <p>Aenean luctus lobortis tellus, vel ornare enim molestie condimentum. Curabitur lacinia nisi
-                                vitae velit volutpat venenatis.</p>
-                            <p>Sed a dignissim lacus. Quisque fermentum est non orci commodo, a luctus urna mattis. Ut
-                                placerat, diam a tempus vehicula.</p>
+                @if ($about)
+                    <div class="col-md-6 col-sm-6">
+                        <div class="about-info">
+                            <h2 class="wow fadeInUp" data-wow-delay="0.6s">
+                                Welcome to Your <i class="fa fa-h-square"></i>ealth Center
+                            </h2>
+                            <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                <p>{{ $about->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                @endif
             </div>
         </div>
         <br>
@@ -83,58 +61,29 @@
 
                 <div class="clearfix"></div>
 
-                <div class="col-md-4 col-sm-6">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="{{ asset('assets/images/team-image1.jpg') }}" class="img-responsive" alt="">
+                @foreach ($teams as $team)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="team-thumb wow fadeInUp" data-wow-delay="0.{{ $loop->iteration * 2 }}s">
+                            <img src="{{ $team->photo ? asset('storage/' . $team->photo) : asset('assets/images/default-team.jpg') }}"
+                                class="img-responsive" alt="{{ $team->name }}">
 
-                        <div class="team-info">
-                            <h3>Nate Baston</h3>
-                            <p>General Principal</p>
-                            <div class="team-contact-info">
-                                <p><i class="fa fa-phone"></i> 010-020-0120</p>
-                                <p><i class="fa fa-envelope-o"></i> <a
-                                        href="mailto:general@company.com">general@company.com</a></p>
+                            <div class="team-info">
+                                <h3>{{ $team->name }}</h3>
+                                <p>{{ $team->speciality }}</p>
+                                <div class="team-contact-info">
+                                    @if ($team->phone)
+                                        <p><i class="fa fa-phone"></i> {{ $team->phone }}</p>
+                                    @endif
+                                    @if ($team->email)
+                                        <p><i class="fa fa-envelope-o"></i>
+                                            <a href="mailto:{{ $team->email }}">{{ $team->email }}</a>
+                                        </p>
+                                    @endif
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="{{ asset('assets/images/team-image2.jpg') }}" class="img-responsive" alt="">
-
-                        <div class="team-info">
-                            <h3>Jason Stewart</h3>
-                            <p>Pregnancy</p>
-                            <div class="team-contact-info">
-                                <p><i class="fa fa-phone"></i> 010-070-0170</p>
-                                <p><i class="fa fa-envelope-o"></i> <a
-                                        href="mailto:pregnancy@company.com">pregnancy@company.com</a></p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <img src="{{ asset('assets/images/team-image3.jpg') }}" class="img-responsive" alt="">
-
-                        <div class="team-info">
-                            <h3>Miasha Nakahara</h3>
-                            <p>Cardiology</p>
-                            <div class="team-contact-info">
-                                <p><i class="fa fa-phone"></i> 010-040-0140</p>
-                                <p><i class="fa fa-envelope-o"></i> <a
-                                        href="mailto:cardio@company.com">cardio@company.com</a></p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
@@ -142,64 +91,33 @@
     </section>
 
     <!-- galery -->
-    <section id="gallery" data-stellar-background-ratio="2.5">
-        <br>
+    <section id="gallery">
         <div class="container">
             <div class="row">
-
                 <div class="col-md-12 col-sm-12">
-                    <!-- SECTION TITLE -->
-                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                        <h2>Gallery cihuy</h2>
+                    <div class="section-title">
+                        <h2>Gallery</h2>
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="{{ asset('assets/images/news-image1.jpg') }}" class="img-responsive" alt="">
-                        <div class="news-info">
-                            <h3>>About Amazing Technology</h3>
-                            <p>Maecenas risus neque, placerat volutpat tempor ut, vehicula et felis.</p>
+                @foreach ($galleries as $gal)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="news-thumb">
+                            <img src="{{ asset('storage/' . $gal->photo) }}" class="img-responsive" alt="">
+                            <div class="news-info">
+                                <h3>{{ $gal->title }}</h3>
+                                <p>{{ $gal->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
-
-                        <img src="{{ asset('assets/images/news-image2.jpg') }}" class="img-responsive" alt="">
-
-                        <div class="news-info">
-                            <h3>Introducineg a new healing process</h3>
-                            <p>Fusce vel sm finibus, rhoncus massa non, aliquam velit. Nam et est ligula.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
-                        <img src="{{ asset('assets/images/news-image3.jpg') }}" class="img-responsive" alt="">
-
-                        <div class="news-info">
-                            <h3>Review Annual Medical Research</h3>
-                            <p>Vivamus non nulla semper diam cursus maximus. Pellentesque dignissim.</p>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
-        <br>
     </section>
 
     <!-- TESTIMONIALS -->
     <section id="testimonials" class="py-5 bg-light">
-        <br>
-        <br>
-        <br>
+        <br><br><br>
         <div class="container">
             <div class="row mb-4">
                 <div class="col text-center">
@@ -209,48 +127,26 @@
             </div>
             <div class="row">
 
-                <!-- Testimonial 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 text-center p-3">
-                        <img src="{{ asset('assets/images/news-image1.jpg') }}" class="rounded-circle mx-auto mb-3"
-                            width="80" height="80" alt="Patient">
-                        <h5>John Doe</h5>
-                        <p class="text-muted">"Pelayanan sangat ramah dan cepat."</p>
-                        <div class="text-warning">
-                            ★★★★☆
+                @foreach ($testimonials as $testi)
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 text-center p-3">
+                            <img src="{{ $testi->photo ? asset('storage/' . $testi->photo) : asset('assets/images/default-user.png') }}"
+                                class="rounded-circle mx-auto mb-3" width="100" height="100"
+                                alt="{{ $testi->name }}">
+                            <h5>{{ $testi->name }}</h5>
+                            <p class="text-muted">"{{ $testi->detail }}"</p>
+                            <div class="text-warning">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    {!! $i <= $testi->rating ? '★' : '☆' !!}
+                                @endfor
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 text-center p-3">
-                        <img src="{{ asset('assets/images/news-image1.jpg') }}" class="rounded-circle mx-auto mb-3"
-                            width="80" height="80" alt="Patient">
-                        <h5>Maria Smith</h5>
-                        <p class="text-muted">"Tempat bersih, dokter komunikatif."</p>
-                        <div class="text-warning">
-                            ★★★★★
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 text-center p-3">
-                        <img src="{{ asset('assets/images/news-image1.jpg') }}" class="rounded-circle mx-auto mb-3"
-                            width="80" height="80" alt="Patient">
-                        <h5>Kevin Lee</h5>
-                        <p class="text-muted">"Sangat puas dengan pemeriksaan."</p>
-                        <div class="text-warning">
-                            ★★★★☆
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
-        <br>
+        <br><br><br><br><br><br>
     </section>
 
     <!-- SERVICES -->
@@ -266,44 +162,24 @@
                     </div>
                 </div>
 
-                <!-- Service Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="service-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="assets/images/slider1.jpg" class="img-responsive" alt="Service 1">
-                        <div class="service-info">
-                            <h3>General Checkup</h3>
-                            <p>Comprehensive health checkup for early detection and prevention of illness.</p>
+                @foreach ($services as $index => $service)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service-thumb wow fadeInUp" data-wow-delay="{{ 0.2 + $index * 0.2 }}s">
+                            <img src="{{ $service->photo ? asset('storage/' . $service->photo) : asset('assets/images/default-service.jpg') }}"
+                                class="img-responsive" alt="{{ $service->title }}">
+                            <div class="service-info">
+                                <h3>{{ $service->title }}</h3>
+                                <p>{{ $service->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Service Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="service-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="assets/images/slider1.jpg" class="img-responsive" alt="Service 2">
-                        <div class="service-info">
-                            <h3>Cardiology</h3>
-                            <p>Expert heart care with modern technology and experienced specialists.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="service-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <img src="assets/images/slider1.jpg" class="img-responsive" alt="Service 3">
-                        <div class="service-info">
-                            <h3>Dental Care</h3>
-                            <p>Expert heart care with modern technology and experienced specialists.</p>
-
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
         <br><br><br>
     </section>
+
 
 
     <!-- sejarh -->
@@ -313,13 +189,11 @@
             <div class="row">
 
                 <div class="col-md-8 col-sm-7">
-                    <!-- NEWS THUMB -->
                     <div class="news-detail-thumb">
                         <div class="news-image">
-                            <img src="{{ asset('assets/images/news-image3.jpg') }}" class="img-responsive"
-                                alt="">
+                            <img src="{{ $sejarah && $sejarah->photo ? asset('storage/' . $sejarah->photo) : asset('assets/images/news-image3.jpg') }}"
+                                class="img-responsive" alt="">
                         </div>
-
                         <br>
                     </div>
                 </div>
@@ -327,12 +201,10 @@
                 <div class="col-md-4 col-sm-5">
                     <div class="news-sidebar">
                         <div class="news-author">
-                            <h4>About the author</h4>
-                            <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue
-                                vulputate voluptate neque.</p>
+                            <h4>{{ $sejarah->title ?? 'About the author' }}</h4>
+                            <p>{{ $sejarah->description ?? 'Belum ada deskripsi sejarah.' }}</p>
                         </div>
-
-
+                        {{-- 
                         <div class="news-tags">
                             <h4>Tags</h4>
                             <li><a href="#">Pregnancy</a></li>
@@ -341,13 +213,14 @@
                             <li><a href="#">Medical</a></li>
                             <li><a href="#">Doctors</a></li>
                             <li><a href="#">Social</a></li>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
+
 
     <!-- PARTNERS -->
     <section id="partners" data-stellar-background-ratio="1">
@@ -363,52 +236,115 @@
                     </div>
                 </div>
 
-                <!-- Partner Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="partner-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="assets/images/slider1.jpg" class="img-responsive" alt="Partner 1">
-                        <div class="partner-info">
-                            <h3>Partner One</h3>
-                            <p>Specialized in advanced medical equipment and innovative healthcare solutions.</p>
+                @forelse ($partners as $partner)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="partner-thumb wow fadeInUp" data-wow-delay="0.2s">
+                            <img src="{{ $partner->photo ? asset('storage/' . $partner->photo) : asset('assets/images/default-partner.jpg') }}"
+                                class="img-responsive" alt="{{ $partner->name }}">
+                            <div class="partner-info">
+                                <h3>{{ $partner->name }}</h3>
+                                <p>{{ $partner->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Partner Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="partner-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="assets/images/slider1.jpg" class="img-responsive" alt="Partner 2">
-                        <div class="partner-info">
-                            <h3>Partner Two</h3>
-                            <p>Providing world-class cardiology research and clinical support.</p>
-                        </div>
+                @empty
+                    <div class="col-md-12">
+                        <p class="text-center">Belum ada partner yang ditambahkan.</p>
                     </div>
-                </div>
-
-                <!-- Partner Item -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="partner-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <img src="assets/images/slider3.jpg" class="img-responsive" alt="Partner 3">
-                        <div class="partner-info">
-                            <h3>Partner Three</h3>
-                            <p>International collaboration for dental and oral health services.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
 
             </div>
         </div>
         <br><br><br>
     </section>
 
+    <!-- MAKE AN APPOINTMENT -->
+    <section id="appointment" data-stellar-background-ratio="3">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+                    <img src="{{ asset('assets/images/appointment-image.jpg') }}" class="img-responsive" alt="">
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <!-- ALERT SUCCESS -->
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <!-- ALERT ERROR (kalau validasi gagal) -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- CONTACT FORM HERE -->
+                    <form id="appointment-form" role="form" method="post"
+                        action="{{ route('fronthero.store') }}">
+                        @csrf
+                        <!-- SECTION TITLE -->
+                        <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                            <h2>Make an appointment</h2>
+                        </div>
+
+                        <div class="wow fadeInUp" data-wow-delay="0.8s">
+                            <div class="col-md-6 col-sm-6">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    placeholder="first Name">
+                            </div>
+                            <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                        placeholder="Last Name">
+                                </div>
+
+                                <div class="col-md-12 col-sm-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Your Email">
+                                </div>
+
+                                <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                    <div class="col-md-12 col-sm-6">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" class="form-control" id="subject" name="subject"
+                                            placeholder="Subject">
+                                    </div>
+
+
+
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description"></textarea>
+                                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit
+                                            Button</button>
+                                    </div>
+                                </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- GOOGLE MAP -->
     <section id="contact">
         <!-- How to change your own map point
-                                    1. Go to Google Maps
-                                    2. Click on your location point
-                                    3. Click "Share" and choose "Embed map" tab
-                                    4. Copy only URL and paste it within the src="" field below
-                         -->
+                                                                                                                    1. Go to Google Maps
+                                                                                                                    2. Click on your location point
+                                                                                                                    3. Click "Share" and choose "Embed map" tab
+                                                                                                                    4. Copy only URL and paste it within the src="" field below
+                                                                                                         -->
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945"
             width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>

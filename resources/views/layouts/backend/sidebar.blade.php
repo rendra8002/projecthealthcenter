@@ -76,6 +76,12 @@
                         <p>Testimonials</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('appointment.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>Message</p>
+                    </a>
+                </li>
 
             </ul>
         </nav>

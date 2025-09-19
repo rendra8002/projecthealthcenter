@@ -12,8 +12,8 @@
                 <div class="form-group">
                     <label for="photo">Photo</label>
                     <div class="custom-file mb-2">
-                        <input type="file" name="photo" class="custom-file-input @error('photo') is-invalid @enderror" 
-                               id="photo" onchange="previewImage(event)">
+                        <input type="file" name="photo" class="custom-file-input @error('photo') is-invalid @enderror"
+                            id="photo" onchange="previewImage(event)">
                         <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
                         @error('photo')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -24,17 +24,16 @@
 
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" 
-                           name="title" id="title" placeholder="Masukkan Judul" value="{{ old('title') }}">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                        id="title" placeholder="Masukkan Judul" value="{{ old('title') }}">
                     @error('title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" 
-                              name="description" id="description" rows="4" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
+                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
+                        rows="4" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

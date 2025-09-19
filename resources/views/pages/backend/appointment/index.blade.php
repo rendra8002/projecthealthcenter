@@ -3,8 +3,6 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-        <!-- /.content-header -->
-
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
@@ -12,8 +10,7 @@
                     <div class="col-lg-12 ">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Setting Halaman Hero</h3>
-                                <a href="{{ route('hero.create') }}" class="btn btn-primary float-right">Tambah Data</a>
+                                <h3 class="card-title">Data Appointment</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -21,46 +18,38 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
-                                            <th>Title</th>
-                                            <th>Subtitle</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($heroes as $hero)
+                                        @forelse ($appointments as $key => $appointment)
                                             <tr>
-                                                <td>1.</td>
-                                                <td>
-                                                    @if ($hero->photo)
-                                                        <img src="{{ asset('storage/' . $hero->photo) }}" alt="photo"
-                                                            width="100">
-                                                    @else
-                                                        <span>null</span>
-                                                    @endif
-                                                </td>
-                                                <td data-label="title">{{ $hero->title }}</td>
-                                                <td data-label="header">{{ $hero->subtitle }}</td>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $appointment->first_name }}</td>
+                                                <td>{{ $appointment->last_name }}</td>
+                                                <td>{{ $appointment->email }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('hero.delete', $hero->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <a href="{{ route('appointment.show', $appointment->id) }}"
+                                                        class="btn btn-info btn-sm">
+                                                        Detail
+                                                    </a>
+                                                    <form action="{{ route('appointment.delete', $appointment->id) }}" 
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                            onclick="return confirm('Apakah yakin ingin menghapus data ini?')">
                                                             Hapus
                                                         </button>
                                                     </form>
-                                                    <a href="{{ route('hero.edit', $hero->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
                                                 </td>
                                             </tr>
-
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data hero belum tersedia</td>
+                                                <td colspan="7" class="text-center">Data appointment belum tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -72,7 +61,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
