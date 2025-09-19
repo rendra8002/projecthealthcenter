@@ -4,20 +4,25 @@ use Illuminate\Support\Facades\Route;
 // Frontend Controllers
 use App\Http\Controllers\Frontend\HeroController;
 
-// Backend Controllers
+//backend
 use App\Http\Controllers\Backend\HeroBackendController;
 use App\Http\Controllers\Backend\AboutUsBackendController;
 use App\Http\Controllers\Backend\GalleryBackendController;
 use App\Http\Controllers\Backend\SejarahBackendController;
 use App\Http\Controllers\Backend\PartnersBackendController;
 use App\Http\Controllers\Backend\ServicesBackendController;
+use App\Http\Controllers\Backend\AppointmentBackendController;
 use App\Http\Controllers\Backend\MediaSocialBackendController;
 use App\Http\Controllers\Backend\TenagaKerjaBackendController;
 use App\Http\Controllers\Backend\TestimonialsBackendController;
 
 
 
+
+
 Route::get('/hero', [HeroController::class, 'index'])->name('fronthero.index');
+Route::post('/hero/store', [HeroController::class, 'store'])->name('fronthero.store');
+
 
 
 Route::prefix('adminpanel')->group(function () {
@@ -28,7 +33,7 @@ Route::prefix('adminpanel')->group(function () {
     Route::delete('/hero/delete{id}', [HeroBackendController::class, 'destroy'])->name('hero.delete');
     Route::get('/hero/{id}/edit', [HeroBackendController::class, 'edit'])->name('hero.edit');
     Route::put('/hero/update/{id}', [HeroBackendController::class, 'update'])->name('hero.update');
-    
+
     //crud aboutus
     Route::get('/aboutus', [AboutUsBackendController::class, 'index'])->name('aboutus.index');
     Route::get('/aboutus/create', [AboutUsBackendController::class, 'create'])->name('aboutus.create');
@@ -65,7 +70,7 @@ Route::prefix('adminpanel')->group(function () {
     Route::get('/mediasocial', [MediaSocialBackendController::class, 'index'])->name('mediasocial.index');
     Route::get('/mediasocial/create', [MediaSocialBackendController::class, 'create'])->name('mediasocial.create');
     Route::post('/mediasocial/store', [MediaSocialBackendController::class, 'store'])->name('mediasocial.store');
-    Route::delete('/mediasocial/delete{id}', [MediaSocialBackendController::class, 'destroy'])->name('mediasocial.delete'); 
+    Route::delete('/mediasocial/delete{id}', [MediaSocialBackendController::class, 'destroy'])->name('mediasocial.delete');
     Route::get('/mediasocial/{id}/edit', [MediaSocialBackendController::class, 'edit'])->name('mediasocial.edit');
     Route::put('/mediasocial/update/{id}', [MediaSocialBackendController::class, 'update'])->name('mediasocial.update');
 
@@ -76,7 +81,7 @@ Route::prefix('adminpanel')->group(function () {
     Route::delete('/partners/delete/{id}', [PartnersBackendController::class, 'destroy'])->name('partners.delete');
     Route::get('/partners/{id}/edit', [PartnersBackendController::class, 'edit'])->name('partners.edit');
     Route::put('/partners/update/{id}', [PartnersBackendController::class, 'update'])->name('partners.update');
-    
+
     // route gallery
     Route::get('/gallery', [GalleryBackendController::class, 'index'])->name('gallery.index');
     Route::get('/gallery/create', [GalleryBackendController::class, 'create'])->name('gallery.create');
@@ -89,7 +94,12 @@ Route::prefix('adminpanel')->group(function () {
     Route::get('/sejarah', [SejarahBackendController::class, 'index'])->name('sejarah.index');
     Route::get('/sejarah/create', [SejarahBackendController::class, 'create'])->name('sejarah.create');
     Route::post('/sejarah/store', [SejarahBackendController::class, 'store'])->name('sejarah.store');
-    Route::get('/sejarah/delete{id}', [SejarahBackendController::class, 'destroy'])->name('sejarah.delete');
+    Route::delete('/sejarah/delete{id}', [SejarahBackendController::class, 'destroy'])->name('sejarah.delete');
     Route::get('/sejarah/{id}/edit', [SejarahBackendController::class, 'edit'])->name('sejarah.edit');
     Route::put('/sejarah/update/{id}', [SejarahBackendController::class, 'update'])->name('sejarah.update');
+
+    //message
+    Route::get('appointments', [AppointmentBackendController::class, 'index'])->name('appointment.index');
+    Route::get('appointments/{id}', [AppointmentBackendController::class, 'show'])->name('appointment.show');
+    Route::delete('/appointment/delete{id}', [AppointmentBackendController::class, 'destroy'])->name('appointment.delete');
 });

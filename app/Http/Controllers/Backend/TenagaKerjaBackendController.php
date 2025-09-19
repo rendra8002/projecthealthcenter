@@ -49,7 +49,7 @@ class TenagaKerjaBackendController extends Controller
         ];
 
         if ($request->hasFile('photo')) {
-            $tenagakerjas['photo'] = $request->file('photo')->store('images', 'public');
+            $tenagakerjas['photo'] = $request->file('photo')->store('images_tenagakerja', 'public');
         }
 
         tenagakerja::create($tenagakerjas);
@@ -108,7 +108,7 @@ class TenagaKerjaBackendController extends Controller
             if ($tenagakerjas->photo && Storage::disk('public')->exists($tenagakerjas->photo)) {
                 Storage::disk('public')->delete($tenagakerjas->photo);
             }
-            $tenagakerjaupdate['photo'] = $request->file('photo')->store('images', 'public');
+            $tenagakerjaupdate['photo'] = $request->file('photo')->store('images_tenagakerja', 'public');
         }
 
 

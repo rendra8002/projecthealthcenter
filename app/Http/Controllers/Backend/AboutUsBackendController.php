@@ -102,7 +102,7 @@ class AboutUsBackendController extends Controller
                     Storage::disk('public')->delete($aboutuses->photo);
                 }
 
-                $path = $request->file('photo')->store('images', 'public');
+                $path = $request->file('photo')->store('images_about', 'public');
                 $aboutuses->photo = $path;
             }
 

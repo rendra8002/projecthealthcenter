@@ -34,6 +34,7 @@ class HeroBackendController extends Controller
         // Validasi input sederhana
         $request->validate([
             'title' => 'required',
+            'subtitle' => 'required',
             'button_text' => 'required',
             'button_link' => 'required',
             'photo' => 'required|image',
@@ -41,6 +42,7 @@ class HeroBackendController extends Controller
 
         $datahero = [
             'title' => $request->title,
+            'subtitle' => $request->subtitle,
             'button_text' => $request->button_text,
             'button_link' => $request->button_link,
         ];
@@ -96,12 +98,14 @@ class HeroBackendController extends Controller
 
         $request->validate([
             'title' => 'sometimes|required',
+            'subtitle' => 'sometimes|required',
             'button_text' => 'sometimes|required',
             'button_link' => 'sometimes|required',
             'photo' => 'nullable|image',
         ]);
 
         $heroes->title = $request->title;
+        $heroes->subtitle = $request->subtitle;
         $heroes->button_text = $request->button_text;
         $heroes->button_link = $request->button_link;
 
@@ -110,7 +114,7 @@ class HeroBackendController extends Controller
             if ($heroes->photo && Storage::disk('public')->exists($heroes->photo)) {
                 Storage::disk('public')->delete($heroes->photo);
             }
-            $heroes->photo = $request->file('photo')->store('images','images_hero', 'public');
+            $heroes->photo = $request->file('photo')->store('images_hero', 'public');
         }
 
         $heroes->save();

@@ -7,7 +7,7 @@
         <!-- /.card-header -->
         <!-- form start -->
 
-        <form action="{{ route('gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('gallery.update', $galleries->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -20,9 +20,9 @@
                         <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
                     </div>
 
-                    @if ($gallery->photo)
+                    @if ($galleries->photo)
                         <div class="mt-2">
-                            <img src="{{ asset('storage/' . $gallery->photo) }}" alt="photo" width="120">
+                            <img src="{{ asset('storage/' . $galleries->photo) }}" alt="photo" width="120">
                         </div>
                     @endif
                 </div>
@@ -30,12 +30,12 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title"
-                        value="{{ old('title', $gallery->title) }}" placeholder="Masukkan judul">
+                        value="{{ old('title', $galleries->title) }}" placeholder="Masukkan judul">
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description', $gallery->description) }}</textarea>
+                    <textarea class="form-control" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description', $galleries->description) }}</textarea>
                 </div>
             </div>
             <!-- /.card-body -->

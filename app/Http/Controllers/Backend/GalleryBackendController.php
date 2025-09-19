@@ -43,7 +43,7 @@ class GalleryBackendController
         ];
 
         if ($request->hasFile('photo')) {
-            $galleries['photo'] = $request->file('photo')->store('images_hero', 'public');
+            $galleries['photo'] = $request->file('photo')->store('images_gallery', 'public');
         }
 
         gallery::create($galleries);
@@ -105,12 +105,12 @@ class GalleryBackendController
             if ($galleries->photo && Storage::disk('public')->exists($galleries->photo)) {
                 Storage::disk('public')->delete($galleries->photo);
             }
-            $galleries->photo = $request->file('photo')->store('images', 'public');
+            $galleries->photo = $request->file('photo')->store('images_gallery', 'public');
         }
 
         $galleries->save();
 
-        return redirect()->route('gallery.index')->with('success', 'Hero berhasil diperbarui.');
+        return redirect()->route('gallery.index');
     }
 
     /**
@@ -128,9 +128,9 @@ class GalleryBackendController
 
             $galleries->delete();
 
-            return redirect()->route('gallery.index')->with('success', 'Hero berhasil dihapus.');
+            return redirect()->route('gallery.index');
         }
 
-        return redirect()->route('hero.index')->with('error', 'Hero tidak ditemukan.');
+        return redirect()->route('hero.index');
     }
 }

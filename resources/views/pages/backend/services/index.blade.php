@@ -40,7 +40,7 @@
                                                 <td>{{ $service->title }}</td>
                                                 <td>{{ $service->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('services.destroy', $service->id) }}"
+                                                    <form action="{{ route('services.delete', $service->id) }}"
                                                         method="POST" style="display:inline"
                                                         onsubmit="return confirm('Apakah yakin ingin menghapus?')">
                                                         @csrf
@@ -75,4 +75,5 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    @include('layouts.backend.footer')
 @endsection

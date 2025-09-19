@@ -22,7 +22,7 @@
                      <li><a href="#sejarah" class="smoothScroll">News</a></li>
                      <li><a href="#contact" class="smoothScroll">Contact</a></li>
 
-                     <li class="appointment-btn"><a href="#contact">Make an Appointment</a></li>
+                     <li class="appointment-btn"><a href="#appointment">Make an Appointment</a></li>
                  </ul>
              </div>
 
