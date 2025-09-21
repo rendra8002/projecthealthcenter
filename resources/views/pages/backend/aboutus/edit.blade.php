@@ -1,42 +1,92 @@
 @extends('layouts.backend.app')
 @section('content')
-    <div class="card card-primary content-wrapper">
-        <div class="card-header">
-            <h3 class="card-title">Edit About</h3>
-        </div>
-        <!-- /.card-header -->
-        <!-- form start -->
+     <style>
+        /* Sidebar fix biar selalu nempel sampai bawah */
+        .main-sidebar {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            height: 100vh !important;
+            min-height: 100vh !important;
+        }
 
-        <form action="{{ route('aboutus.update', $aboutuses->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+        .sidebar {
+            height: 100% !important;
+            overflow-y: auto;
+        }
 
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="photo">File input</label>
-                    <div class="custom-file">
-                        <input type="file" name="photo" class="custom-file-input" id="photo"
-                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
-                        <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
-                    </div>
+        /* Content wrapper geser lebih jauh dari sidebar */
+        .content-wrapper {
+            min-height: 100vh !important;
+            padding: 20px !important;
+            margin-left: 300px !important;  /* lebar sidebar */
+            margin-right: 70px !important;  /* spasi kanan */
+        }
 
-                    @if ($aboutuses->photo)
-                        <div class="mt-2">
-                            <img src="{{ asset('storage/' . $aboutuses->photo) }}" alt="photo" width="120">
+        /* Bungkus konten biar lebih center */
+        .content-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        /* Jarak antar field form */
+        .card-body .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h3 class="card-title">Halaman Edit About</h3>
+                            </div>
+
+                            <form action="{{ route('aboutus.update', $aboutuses->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="card-body">
+                                    {{-- File Input --}}
+                                    <div class="form-group">
+                                        <label for="photo">File input</label>
+                                        <div class="custom-file">
+                                            <input type="file" name="photo" class="custom-file-input" id="photo"
+                                                onchange="document.getElementById('photo-label').innerText = this.files[0].name">
+                                            <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
+                                        </div>
+
+                                        @if ($aboutuses->photo)
+                                            <div class="mt-2">
+                                                <img src="{{ asset('storage/' . $aboutuses->photo) }}" alt="photo"
+                                                    width="120" class="img-thumbnail">
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- Description --}}
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" name="description" id="description"
+                                            value="{{ old('description', $aboutuses->description) }}"
+                                            placeholder="Description">
+                                    </div>
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-start">
+                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                    <a href="{{ route('aboutus.index') }}" class="btn btn-secondary">Back</a>
+                                </div>
+                            </form>
                         </div>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label for="description">Title</label>
-                    <input type="text" class="form-control" name="description" id="description"
-                        value="{{ old('title', $aboutuses->description) }}" placeholder="Description">
+                    </div>
                 </div>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('aboutus.index') }}" class="btn btn-secondary">Back</a>
-            </div>
-        </form>
+        </section>
     </div>
 @endsection
