@@ -36,6 +36,7 @@
             margin-bottom: 20px;
         }
     </style>
+
     <div class="card card-primary content-wrapper">
         <div class="card-header">
             <h3 class="card-title">Halaman Edit Hero/Dashboard</h3>
@@ -57,6 +58,10 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="subtitle">Subtitle</label>
+                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Subtitle">
                 </div>
                 <div class="form-group">
                     <label for="button_text">Button Text</label>

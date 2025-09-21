@@ -110,13 +110,13 @@ class SejarahBackendController extends Controller
      */
     public function destroy(string $id)
     {
-        $sejarahs = Sejarah::find($id);
+        $sejarah = Sejarah::find($id);
 
-        if ($sejarahs) {
-            if ($sejarahs->photo && Storage::disk('public')->exists($sejarahs->photo)) {
-                Storage::disk('public')->delete($sejarahs->photo);
+        if ($sejarah) {
+            if ($sejarah->photo && Storage::disk('public')->exists($sejarah->photo)) {
+                Storage::disk('public')->delete($sejarah->photo);
             }
-            $sejarahs->delete();
+            $sejarah->delete();
 
             return redirect()->route('sejarah.index')->with('success', 'Data Sejarah berhasil dihapus.');
         }

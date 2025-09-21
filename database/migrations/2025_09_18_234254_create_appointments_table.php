@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('heroes', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('photo');
-            $table->string('title');
-            $table->string('subtitle');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('subject');
+            $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('button_text');
-            $table->string('button_link');
+
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('heroes');
+        Schema::dropIfExists('appointments');
     }
 };

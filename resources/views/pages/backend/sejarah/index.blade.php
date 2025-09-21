@@ -14,7 +14,7 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th style="width: 50px">#</th>
@@ -31,10 +31,10 @@
                                                     <td>
                                                         @if ($sejarah->photo)
                                                             <img src="{{ asset('storage/' . $sejarah->photo) }}" 
-                                                                 alt="photo" width="100" class="img-thumbnail">
+                                                                 alt="photo" width="100">
                                                         @else
                                                             <img src="{{ asset('images/no-image.png') }}" 
-                                                                 alt="no-photo" width="100" class="img-thumbnail">
+                                                                 alt="no-photo" width="100">
                                                         @endif
                                                     </td>
                                                     <td>{{ $sejarah->title }}</td>
@@ -58,7 +58,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5" class="text-center">Data Sejarah belum tersedia</td>
+                                                    <td colspan="10" class="text-center">Data Sejarah belum tersedia</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -73,4 +73,5 @@
             </div>
         </div>
     </div>
+    @include('layouts.backend.footer')
 @endsection

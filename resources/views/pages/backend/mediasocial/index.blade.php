@@ -31,7 +31,7 @@
                                                 <td>
                                                     @if ($media->photo)
                                                         <img src="{{ asset('storage/' . $media->photo) }}" alt="photo"
-                                                            width="80" class="img-thumbnail">
+                                                            width="80">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -76,4 +76,5 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    @include('layouts.backend.footer')
 @endsection

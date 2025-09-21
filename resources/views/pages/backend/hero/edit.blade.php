@@ -31,8 +31,11 @@
                     <input type="text" class="form-control" name="title" id="title"
                         value="{{ old('title', $heroes->title) }}" placeholder="Title">
                 </div>
-
-
+                <div class="form-group">
+                    <label for="subtitle">Subtitle</label>
+                    <input type="text" class="form-control" name="subtitle" id="subtitle"
+                        value="{{ old('subtitle', $heroes->header) }}" placeholder="subtitle">
+                </div>
 
                 <div class="form-group">
                     <label for="button_text">Button Text</label>
