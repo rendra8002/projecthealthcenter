@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 // Frontend Controllers
-use App\Http\Controllers\Frontend\HeroController;
+use App\Http\Controllers\LoginController;
 
 //backend
+use App\Http\Controllers\Frontend\HeroController;
 use App\Http\Controllers\Backend\HeroBackendController;
 use App\Http\Controllers\Backend\AboutUsBackendController;
 use App\Http\Controllers\Backend\GalleryBackendController;
@@ -20,8 +21,10 @@ use App\Http\Controllers\Backend\TestimonialsBackendController;
 
 
 
-Route::get('/hero', [HeroController::class, 'index'])->name('fronthero.index');
+Route::get('/', [HeroController::class, 'index'])->name('fronthero.index');
 Route::post('/hero/store', [HeroController::class, 'store'])->name('fronthero.store');
+
+Route::get('/login', [LoginController::class, 'index']);
 
 
 

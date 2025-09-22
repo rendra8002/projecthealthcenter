@@ -1,31 +1,30 @@
 @extends('layouts.backend.app')
 @section('content')
-    <div class="card card-primary content-wrapper">
-        <div class="card-header">
-            <h3 class="card-title">Edit Gallery</h3>
-        </div>
-        <!-- /.card-header -->
-        <!-- form start -->
-
-        <form action="{{ route('gallery.update', $galleries->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="photo">Upload Photo</label>
-                    <div class="custom-file">
-                        <input type="file" name="photo" class="custom-file-input" id="photo"
-                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
-                        <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
-                    </div>
-
-                    @if ($galleries->photo)
-                        <div class="mt-2">
-                            <img src="{{ asset('storage/' . $galleries->photo) }}" alt="photo" width="120">
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Halaman Edit Data Galeri</h3>
                         </div>
-                    @endif
-                </div>
+                        <!-- /.card-header -->
+
+                        <form action="{{ route('gallery.update', $galleries->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="card-body">
+                                {{-- Upload Photo --}}
+                                <div class="form-group">
+                                    <label for="photo">Upload Photo</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="photo" class="custom-file-input" id="photo"
+                                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
+                                        <label class="custom-file-label" id="photo-label" for="photo">Pilih file</label>
+                                    </div>
+                                </div>
 
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -33,17 +32,22 @@
                         value="{{ old('title', $galleries->title) }}" placeholder="Masukkan judul">
                 </div>
 
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description', $galleries->description) }}</textarea>
+                                {{-- Description --}}
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" name="description" id="description" placeholder="Masukkan deskripsi">{{ old('description', $galleries->description) }}</textarea>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer d-flex justify-content-start">
+                                <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                <a href="{{ route('gallery.index') }}" class="btn btn-secondary">Back</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('gallery.index') }}" class="btn btn-secondary">Back</a>
-            </div>
-        </form>
+        </div>
     </div>
 @endsection

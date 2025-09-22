@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Health - Medical Website Template</title>
+    <title>Health Center</title>
     <!--
 
 Template 2098 Health

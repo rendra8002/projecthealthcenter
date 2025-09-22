@@ -1,22 +1,22 @@
 @extends('layouts.backend.app')
+
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Setting Halaman Hero</h3>
-                                <a href="{{ route('hero.create') }}" class="btn btn-primary float-right">Tambah Data</a>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Setting Halaman Hero</h3>
+                            <div class="card-tools">
+                                <a href="{{ route('hero.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                                <ul class="pagination pagination-sm float-right">
+                                </ul>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
+                        </div>
+                        <div class="card-body p-0">
+                            {{-- Menambahkan div agar tabel dapat di-scroll vertikal --}}
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -66,17 +66,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
     </div>
-    <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
     @include('layouts.backend.footer')
 @endsection
