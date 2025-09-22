@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryBackendController
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -32,9 +32,9 @@ class GalleryBackendController
     {
         // Validasi input sederhana
         $request->validate([
-            'title' => 'required',
-            'photo' => 'required|image',
-            'description' => 'required',
+            'title' => 'sometimes|required',
+            'photo' => 'nullable|image',
+            'description' => 'sometimes|required',
         ]);
 
         $galleries = [
@@ -99,7 +99,7 @@ class GalleryBackendController
 
         $galleries->title = $request->title;
         $galleries->description = $request->description;
-        
+
         if ($request->hasFile('photo')) {
             // Hapus foto lama
             if ($galleries->photo && Storage::disk('public')->exists($galleries->photo)) {

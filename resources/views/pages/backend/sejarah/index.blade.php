@@ -19,20 +19,20 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($sejarahs as $sejarah)
+                                        @forelse ($sejarahs as $index => $sejarah)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 }}.</td>
                                                 <td>
                                                     @if ($sejarah->photo)
                                                         <img src="{{ asset('storage/' . $sejarah->photo) }}" alt="photo"
-                                                            width="120">
+                                                            width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -40,8 +40,8 @@
                                                 <td>{{ $sejarah->title }}</td>
                                                 <td>{{ Str::limit($sejarah->description, 100) }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('sejarah.delete', $sejarah->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <form action="{{ route('sejarah.delete', $sejarah->id) }}"
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"

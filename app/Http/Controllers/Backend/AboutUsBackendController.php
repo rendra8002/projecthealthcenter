@@ -33,8 +33,8 @@ class AboutUsBackendController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'photo' => 'required',
-            'description' => 'required',
+            'photo' => 'nullable|image',
+            'description' => 'sometimes|required',
         ]);
 
         $aboutuses = [
@@ -42,7 +42,7 @@ class AboutUsBackendController extends Controller
         ];
 
         if ($request->hasFile('photo')) {
-            $aboutuses['photo'] = $request->file('photo')->store('images', 'public');
+            $aboutuses['photo'] = $request->file('photo')->store('images_about', 'public');
         }
 
         aboutus::create($aboutuses);
@@ -88,7 +88,7 @@ class AboutUsBackendController extends Controller
 
         if ($aboutuses != null) {
             $request->validate([
-                'description' => 'required',
+                'description' => 'sometimes|required',
                 'photo' => 'nullable|image', // photo tidak wajib
             ]);
 

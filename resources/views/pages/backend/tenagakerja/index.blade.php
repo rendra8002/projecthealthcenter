@@ -19,7 +19,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 120px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Name</th>
                                             <th>Speciality</th>
                                             <th>Phone</th>
@@ -28,13 +28,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($tenagakerjas as $tenagakerja)
+                                        @forelse ($tenagakerjas as $index => $tenagakerja)
                                             <tr>
-                                                <td>{{ $loop->iteration }}.</td>
+                                                <td>{{ $index + 1 }}.</td>
                                                 <td>
                                                     @if ($tenagakerja->photo)
                                                         <img src="{{ asset('storage/' . $tenagakerja->photo) }}"
-                                                            alt="photo" width="100">
+                                                            alt="photo" width="150">
                                                     @else
                                                         <span class="text-muted">No Image</span>
                                                     @endif

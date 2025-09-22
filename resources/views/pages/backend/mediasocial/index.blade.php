@@ -19,7 +19,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 150px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Name</th>
                                             <th>Link</th>
                                             <th>App</th>
@@ -27,13 +27,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($mediasocials as $key => $media)
+                                        @forelse ($mediasocials as $index => $media)
                                             <tr>
-                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $index + 1 }}.</td>
                                                 <td>
                                                     @if ($media->photo)
                                                         <img src="{{ asset('storage/' . $media->photo) }}" alt="photo"
-                                                            width="80">
+                                                            width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -44,11 +44,12 @@
                                                 </td>
                                                 <td>{{ $media->name_mediasocial }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('mediasocial.delete', $media->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <form action="{{ route('mediasocial.delete', $media->id) }}"
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
                                                             Hapus
                                                         </button>
                                                     </form>

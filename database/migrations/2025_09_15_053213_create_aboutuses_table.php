@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('aboutuses', function (Blueprint $table) {
             $table->id();
-            $table->string('photo');
-            $table->text('description');
+            $table->string('photo')->nullable();
+            $table->text('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

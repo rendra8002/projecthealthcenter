@@ -33,11 +33,11 @@ class HeroBackendController extends Controller
     {
         // Validasi input sederhana
         $request->validate([
-            'title' => 'required',
-            'subtitle' => 'required',
-            'button_text' => 'required',
-            'button_link' => 'required',
-            'photo' => 'required|image',
+            'title' => 'sometimes|required',
+            'subtitle' => 'sometimes|required',
+            'button_text' => 'sometimes|required',
+            'button_link' => 'sometimes|required',
+            'photo' => 'nullable|image',
         ]);
 
         $datahero = [

@@ -12,24 +12,34 @@
 
                         <form action="{{ route('sejarah.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="card-body">
+                            <div class="card-body" style="max-height:70vh; overflow-y:auto;">
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <div class="custom-file mb-2">
                                         <input type="file" name="photo" class="custom-file-input" id="photo"
-                                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
+                                            onchange="previewPhoto(this)">
                                         <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <p>Preview:</p>
+                                        <div
+                                            style="width:auto; height:300px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center;">
+                                            <img id="photo-preview"
+                                                src="{{ !empty($datasejarah->photo) ? asset('storage/' . $datasejarah->photo) : '' }}"
+                                                alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain;">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control" name="title" id="title"
-                                        placeholder="Masukkan Judul" value="{{ old('title') }}">
+                                        placeholder="Title">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="4" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="4" placeholder="Description"></textarea>
                                 </div>
                             </div>
                             <div class="card-footer d-flex">

@@ -15,14 +15,28 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="card-body">
+                            <div class="card-body" style="max-height:70vh; overflow-y:auto;">
                                 {{-- Photo --}}
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <div class="custom-file">
                                         <input type="file" name="photo" class="custom-file-input" id="photo"
-                                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
-                                        <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
+                                            id="photo"onchange="previewPhoto(this)">
+
+                                        {{-- Label default: tampilkan nama file lama dari database (kalau ada) --}}
+                                        <label class="custom-file-label" id="photo-label" for="photo">
+                                            {{ $mediasocial->photo ?? 'Pilih file' }}
+                                        </label>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <p>Preview:</p>
+                                        <div
+                                            style="width:auto; height:300px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center;">
+                                            <img id="photo-preview"
+                                                src="{{ !empty($mediasocial->photo) ? asset('storage/' . $mediasocial->photo) : '' }}"
+                                                alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain;">
+                                        </div>
                                     </div>
                                 </div>
 

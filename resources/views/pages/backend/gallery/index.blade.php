@@ -20,20 +20,20 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($galleries as $gallery)
+                                        @forelse ($galleries as $index => $gallery)
                                             <tr>
-                                                <td>{{ $loop->iteration }}.</td>
+                                                <td>{{ $index + 1 }}.</td>
                                                 <td>
                                                     @if ($gallery->photo)
                                                         <img src="{{ asset('storage/' . $gallery->photo) }}" alt="photo"
-                                                            width="120">
+                                                            width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -41,8 +41,8 @@
                                                 <td data-label="title">{{ $gallery->title }}</td>
                                                 <td data-label="description">{{ $gallery->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('gallery.delete', $gallery->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <form action="{{ route('gallery.delete', $gallery->id) }}"
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"

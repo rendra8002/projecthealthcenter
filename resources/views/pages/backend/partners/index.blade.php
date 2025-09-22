@@ -32,7 +32,7 @@
                                                 <td>
                                                     @if ($partner->photo)
                                                         <img src="{{ asset('storage/' . $partner->photo) }}" alt="photo"
-                                                            width="100">
+                                                            width="150">
                                                     @else
                                                         <span class="text-muted text-center">No Image</span>
                                                     @endif

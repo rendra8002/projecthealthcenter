@@ -34,11 +34,11 @@ class TenagaKerjaBackendController extends Controller
     {
 
         $request->validate([
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'name' => 'required',
-            'speciality' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
+            'photo' => 'nullable|image',
+            'name' => 'sometimes|required',
+            'speciality' => 'sometimes|required',
+            'phone' => 'sometimes|required',
+            'email' => 'sometimes|required',
         ]);
 
         $tenagakerjas = [
@@ -97,11 +97,11 @@ class TenagaKerjaBackendController extends Controller
     {
         $tenagakerjas = tenagakerja::find($id);
         $request->validate([
-            'name'       => 'required',
-            'speciality' => 'required',
-            'phone'      => 'nullable',
-            'email'      => 'nullable|email',
-            'photo'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'name'       => 'sometimes|required',
+            'speciality' => 'sometimes|required',
+            'phone'      => 'sometimes|required',
+            'email'      => 'sometimes|required',
+            'photo'      => 'nullable|image',
         ]);
 
         if ($request->hasFile('photo')) {

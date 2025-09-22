@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('heroes', function (Blueprint $table) {
             $table->id();
-            $table->string('photo');
-            $table->string('title');
-            $table->string('subtitle');
+            $table->string('photo')->nullable();
+            $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('button_text');
-            $table->string('button_link');
+            $table->string('button_text')->nullable();
+            $table->string('button_link')->nullable();
             $table->timestamps();
         });
     }

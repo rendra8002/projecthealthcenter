@@ -23,31 +23,31 @@
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                                <table class="table table-striped">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th>Photo</th>
+                                            <th style="width:200px">Photo</th>
                                             <th>Description</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($aboutuses as $aboutus)
+                                        @forelse ($aboutuses as $index => $aboutus)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     @if ($aboutus->photo)
                                                         <img src="{{ asset('storage/' . $aboutus->photo) }}" alt="photo"
-                                                            width="100">
+                                                            width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $aboutus->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('aboutus.delete', $aboutus->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <form action="{{ route('aboutus.delete', $aboutus->id) }}"
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"
@@ -56,7 +56,7 @@
                                                         </button>
                                                     </form>
                                                     <a href="{{ route('aboutus.edit', $aboutus->id) }}"
-                                                        class="btn btn-warning btn-sm">
+                                                        class="btn btn-warning btn-sm ml-2">
                                                         Edit
                                                     </a>
                                                 </td>

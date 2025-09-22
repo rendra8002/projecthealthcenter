@@ -1,41 +1,5 @@
 @extends('layouts.backend.app')
 @section('content')
-<style>
-        /* Sidebar fix biar selalu nempel sampai bawah */
-        .main-sidebar {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            height: 100vh !important;
-            min-height: 100vh !important;
-        }
-
-        .sidebar {
-            height: 100% !important;
-            overflow-y: auto;
-        }
-
-        /* Content wrapper geser lebih jauh dari sidebar */
-        .content-wrapper {
-            min-height: 100vh !important;
-            padding: 20px !important;
-            margin-left: 300px !important;  /* lebar sidebar */
-            margin-right: 70px !important;  /* spasi kanan */
-        }
-
-        /* Bungkus konten biar lebih center */
-        .content-container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-
-        /* Jarak antar field form */
-        .card-body .form-group {
-            margin-bottom: 20px;
-        }
-    </style>
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -48,14 +12,24 @@
 
                         <form action="{{ route('partners.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="card-body">
+                            <div class="card-body" style="max-height:70vh; overflow-y:auto;">
                                 {{-- Photo --}}
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <div class="custom-file mb-2">
                                         <input type="file" name="photo" class="custom-file-input" id="photo"
-                                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
+                                            onchange="previewPhoto(this)">
                                         <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <p>Preview:</p>
+                                        <div
+                                            style="width:auto; height:300px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center;">
+                                            <img id="photo-preview"
+                                                src="{{ !empty($data->photo) ? asset('storage/' . $data->photo) : '' }}"
+                                                alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain;">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -75,7 +49,7 @@
                             </div>
                             <div class="card-footer d-flex">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('hero.index') }}" class="btn btn-secondary ml-2">Back</a>
+                                <a href="{{ route('partners.index') }}" class="btn btn-secondary ml-2">Back</a>
                             </div>
                         </form>
                     </div>

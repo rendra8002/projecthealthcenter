@@ -15,32 +15,35 @@
                             @csrf
                             @method('PUT')
 
-                            <div class="card-body" style="min-height: 400px;"> {{-- tinggi minimal biar ga goyang --}}
+                            <div class="card-body" style="max-height:70vh; overflow-y:auto;">
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <div class="custom-file mb-2">
                                         <input type="file" name="photo"
                                             class="custom-file-input @error('photo') is-invalid @enderror" id="photo"
-                                            onchange="previewImage(event)">
-                                        <label class="custom-file-label" id="photo-label" for="photo">Choose
-                                            file</label>
-                                        @error('photo')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            id="photo"onchange="previewPhoto(this)">
+
+                                        {{-- Label default: tampilkan nama file lama dari database (kalau ada) --}}
+                                        <label class="custom-file-label" id="photo-label" for="photo">
+                                            {{ $sejarahs->photo ?? 'Choose File' }}
+                                        </label>
                                     </div>
 
-                                    <div class="mt-2">
-                                        <img id="preview"
-                                            src="{{ $sejarahs->photo ? asset('storage/' . $sejarahs->photo) : '#' }}"
-                                            alt="Preview" class="img-thumbnail {{ $sejarahs->photo ? '' : 'd-none' }}"
-                                            width="150">
+                                    <div class="mt-3">
+                                        <p>Preview:</p>
+                                        <div
+                                            style="width:auto; height:300px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center;">
+                                            <img id="photo-preview"
+                                                src="{{ !empty($sejarahs->photo) ? asset('storage/' . $sejarahs->photo) : '' }}"
+                                                alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain;">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                        name="title" id="title" placeholder="Masukkan Judul"
+                                        name="title" id="title" placeholder="Title"
                                         value="{{ old('title', $sejarahs->title) }}">
                                     @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>

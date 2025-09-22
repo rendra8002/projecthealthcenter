@@ -25,13 +25,14 @@
                                     <tbody>
                                         @forelse ($appointments as $key => $appointment)
                                             <tr>
-                                                <td>{{ $loop->iteration }}.</td>
+                                                <td>{{ $key + 1 }}.</td>
                                                 <td>{{ $appointment->first_name }}</td>
                                                 <td>{{ $appointment->last_name }}</td>
                                                 <td>{{ $appointment->email }}</td>
                                                 <td class="action">
-                                                    <form id="delete-form-{{ $appointment->id }}" action="{{ route('appointment.delete', $appointment->id) }}" method="POST"
-                                                        style="display:inline">
+                                                    <form id="delete-form-{{ $appointment->id }}"
+                                                        action="{{ route('appointment.delete', $appointment->id) }}"
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-danger btn-sm"
@@ -65,7 +66,8 @@
     @include('layouts.backend.footer')
 
     <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
