@@ -26,11 +26,11 @@
                                     </div>
                                 </div>
 
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" id="title"
-                        value="{{ old('title', $galleries->title) }}" placeholder="Masukkan judul">
-                </div>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" name="title" id="title"
+                                        value="{{ old('title', $galleries->title) }}" placeholder="Masukkan judul">
+                                </div>
 
                                 {{-- Description --}}
                                 <div class="form-group">

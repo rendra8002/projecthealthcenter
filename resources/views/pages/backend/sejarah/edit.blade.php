@@ -67,18 +67,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('preview');
-            const label = document.getElementById('photo-label');
-
-            if (input.files && input.files[0]) {
-                label.innerText = input.files[0].name;
-                preview.src = URL.createObjectURL(input.files[0]);
-                preview.classList.remove('d-none');
-            }
-        }
-    </script>
 @endsection

@@ -1,6 +1,43 @@
 @extends('layouts.backend.app')
 
 @section('content')
+<style>
+    /* Sidebar fix biar selalu nempel sampai bawah */
+        .main-sidebar {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            height: 100vh !important;
+            min-height: 100vh !important;
+        }
+
+        .sidebar {
+            height: 100% !important;
+            overflow-y: auto;
+        }
+
+        /* Content wrapper geser lebih jauh dari sidebar */
+        .content-wrapper {
+            min-height: 100vh !important;
+            padding: 20px !important;
+            margin-left: 300px !important;  /* lebar sidebar */
+            margin-right: 70px !important;  /* spasi kanan */
+        }
+
+        /* Bungkus konten biar lebih center */
+        .content-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        /* Jarak antar field form */
+        .card-body .form-group {
+            margin-bottom: 20px;
+        }
+
+     </style>
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row justify-content-center">

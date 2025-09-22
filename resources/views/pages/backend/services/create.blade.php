@@ -27,8 +27,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="4"
-                                        placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="4" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer d-flex">

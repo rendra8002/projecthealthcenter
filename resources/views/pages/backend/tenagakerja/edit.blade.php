@@ -9,7 +9,8 @@
                             <h3 class="card-title">Edit Data Dokter</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('tenagakerja.update', $tenagakerjas->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tenagakerja.update', $tenagakerjas->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -32,7 +33,8 @@
                                 <div class="form-group">
                                     <label for="speciality">Spesialisasi</label>
                                     <input type="text" class="form-control" name="speciality" id="speciality"
-                                        value="{{ old('speciality', $tenagakerjas->speciality) }}" placeholder="Spesialisasi">
+                                        value="{{ old('speciality', $tenagakerjas->speciality) }}"
+                                        placeholder="Spesialisasi">
                                 </div>
 
                                 <div class="form-group">

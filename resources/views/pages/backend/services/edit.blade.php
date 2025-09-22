@@ -36,8 +36,7 @@
                                 {{-- Description --}}
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="4"
-                                        placeholder="Masukkan Deskripsi">{{ old('description', $service->description) }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="4" placeholder="Masukkan Deskripsi">{{ old('description', $service->description) }}</textarea>
                                 </div>
                             </div>
                             <!-- /.card-body -->
