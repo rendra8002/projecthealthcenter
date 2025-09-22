@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('tenagakerjas', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama dokter
-            $table->string('speciality'); // Spesialisasi
-            $table->string('phone');
-            $table->string('email');
-            $table->string('photo'); // Path foto
+            $table->string('name')->nullable(); // Nama dokter
+            $table->string('speciality')->nullable(); // Spesialisasi
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('photo')->nullable(); // Path foto
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

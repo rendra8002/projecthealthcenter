@@ -12,14 +12,27 @@
                             @csrf
                             @method('PUT')
 
-                            <div class="card-body">
+                            <div class="card-body" style="max-height:70vh; overflow-y:auto;">
                                 <div class="form-group">
                                     <label for="photo">File input</label>
                                     <div class="custom-file">
                                         <input type="file" name="photo" class="custom-file-input" id="photo"
-                                            onchange="document.getElementById('photo-label').innerText = this.files[0].name">
-                                        <label class="custom-file-label" id="photo-label" for="photo">Choose
-                                            file</label>
+                                            onchange="previewPhoto(this)">
+
+                                        {{-- Label default: tampilkan nama file lama dari database (kalau ada) --}}
+                                        <label class="custom-file-label" id="photo-label" for="photo">
+                                            {{ $heroes->photo ?? 'Pilih file' }}
+                                        </label>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <p>Preview:</p>
+                                        <div
+                                            style="width:auto; height:300px; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center;">
+                                            <img id="photo-preview"
+                                                src="{{ !empty($heroes->photo) ? asset('storage/' . $heroes->photo) : '' }}"
+                                                alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain;">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -32,7 +45,7 @@
                                 <div class="form-group">
                                     <label for="subtitle">Subtitle</label>
                                     <input type="text" class="form-control" name="subtitle" id="subtitle"
-                                        value="{{ old('subtitle', $heroes->header) }}" placeholder="Subtitle">
+                                        value="{{ old('subtitle', $heroes->subtitle) }}" placeholder="Subtitle">
                                 </div>
 
                                 <div class="form-group">

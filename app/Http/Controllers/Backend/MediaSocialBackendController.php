@@ -31,9 +31,9 @@ class MediaSocialBackendController
     public function store(Request $request)
     {
         $request->validate([
-            'name_account'    => 'required|string|max:255',
-            'link'            => 'required|url',
-            'name_mediasocial' => 'required|string|max:255',
+            'name_account'    => 'sometimes|required',
+            'link'            => 'sometimes|required|url',
+            'name_mediasocial' => 'sometimes|required',
             'photo'           => 'nullable|image',
         ]);
 
@@ -93,9 +93,9 @@ class MediaSocialBackendController
         }
 
         $request->validate([
-            'name_account'    => 'sometimes|required|string|max:255',
+            'name_account'    => 'sometimes|required',
             'link'            => 'sometimes|required|url',
-            'name_mediasocial' => 'sometimes|required|string|max:255',
+            'name_mediasocial' => 'sometimes|required',
             'photo'           => 'nullable|image',
         ]);
 

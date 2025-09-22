@@ -33,9 +33,9 @@ class SejarahBackendController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'photo' => 'nullable|image',
         ]);
 
         $datasejarah = [
@@ -84,9 +84,9 @@ class SejarahBackendController extends Controller
         }
 
         $request->validate([
-            'title' => 'sometimes|required|string|max:255',
+            'title' => 'sometimes|required',
             'description' => 'sometimes|required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'photo' => 'nullable|image',
         ]);
 
         $sejarahs->title = $request->title;

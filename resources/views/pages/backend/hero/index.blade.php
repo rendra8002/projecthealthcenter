@@ -21,20 +21,20 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Subtitle</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($heroes as $hero)
+                                        @forelse ($heroes as $index => $hero)
                                             <tr>
-                                                <td>1.</td>
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     @if ($hero->photo)
                                                         <img src="{{ asset('storage/' . $hero->photo) }}" alt="photo"
-                                                            width="100">
+                                                            width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif

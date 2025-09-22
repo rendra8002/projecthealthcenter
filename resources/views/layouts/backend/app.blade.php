@@ -63,8 +63,6 @@
             z-index: 1030;
             /* Menjaga footer di atas elemen lain, seperti sidebar */
         }
-
-        
     </style>
 </head>
 
@@ -76,27 +74,6 @@
 
     @yield('content')
 
-    <!-- REQUIRED SCRIPTS -->
-
-
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            const reader = new FileReader();
-
-            reader.onload = function() {
-                const preview = document.getElementById('preview');
-                preview.src = reader.result;
-                preview.style.display = 'block';
-            };
-
-            if (input.files && input.files[0]) {
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
-
-
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
@@ -104,6 +81,25 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        function previewPhoto(input) {
+            const file = input.files[0];
+            const label = document.getElementById('photo-label');
+            const preview = document.getElementById('photo-preview');
+
+            if (file) {
+                label.innerText = file.name;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                label.innerText = "Choose file";
+                preview.src = "";
+            }
+        }
+    </script>
 </body>
 
 </html>

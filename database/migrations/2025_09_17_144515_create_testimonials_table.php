@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('photo')->nullable(); // simpan path foto
-            $table->string('name'); // nama orang yang kasih testimonial
-            $table->text('detail'); // isi testimonial
-            $table->unsignedTinyInteger('rating')->default(5); // rating 1-5
+            $table->string('name')->nullable(); // nama orang yang kasih testimonial
+            $table->text('detail')->nullable(); // isi testimonial
+            $table->unsignedTinyInteger('rating')->default(5)->nullable(); // rating 1-5
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

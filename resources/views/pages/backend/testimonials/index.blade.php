@@ -1,17 +1,18 @@
 @extends('layouts.backend.app')
 @section('content')
     <div class="content-wrapper">
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Halaman Testimonial</h3>
-                                <a href="{{ route('testimonials.create') }}" class="btn btn-primary float-right">Tambah Data</a>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Halaman Testimonial</h3>
+                            <a href="{{ route('testimonials.create') }}" class="btn btn-primary float-right">Tambah
+                                Data</a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="table responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -24,13 +25,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($testimonials as $testimonial)
+                                        @forelse ($testimonials as $index => $testimonial)
                                             <tr>
-                                                <td>{{ $loop->iteration }}.</td>
+                                                <td>{{ $index + 1 }}.</td>
                                                 <td>
                                                     @if ($testimonial->photo)
-                                                        <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="photo"
-                                                            width="100">
+                                                        <img src="{{ asset('storage/' . $testimonial->photo) }}"
+                                                            alt="photo" width="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -72,9 +73,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
             </div>

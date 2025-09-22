@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('mediasocials', function (Blueprint $table) {
             $table->id();
             $table->string('photo')->nullable();          // path foto
-            $table->string('name_account');               // nama akun
-            $table->string('link');                       // link akun
-            $table->string('name_mediasocial'); 
+            $table->string('name_account')->nullable();               // nama akun
+            $table->string('link')->nullable();                       // link akun
+            $table->string('name_mediasocial')->nullable(); 
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

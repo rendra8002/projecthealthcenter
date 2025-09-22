@@ -32,23 +32,23 @@ class TestimonialsBackendController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'detail' => 'required|string',
-            'rating' => 'required|integer|min:1|max:5',
+            'name'   => 'sometimes|required',
+            'detail' => 'sometimes|required',
+            'rating' => 'sometimes|required|integer|min:1|max:5',
             'photo'  => 'nullable|image',
         ]);
 
-        $dataTestimonial = [
+        $datatestimonial = [
             'name'   => $request->name,
             'detail' => $request->detail,
             'rating' => $request->rating,
         ];
 
         if ($request->hasFile('photo')) {
-            $dataTestimonial['photo'] = $request->file('photo')->store('images_testimonial', 'public');
+            $datatestimonial['photo'] = $request->file('photo')->store('images_testimonial', 'public');
         }
 
-        testimonials::create($dataTestimonial);
+        testimonials::create($datatestimonial);
 
         return redirect()->route('testimonials.index')->with('success', 'Testimonial berhasil ditambahkan.');
     }
@@ -94,8 +94,8 @@ class TestimonialsBackendController extends Controller
         }
 
         $request->validate([
-            'name'   => 'sometimes|required|string|max:255',
-            'detail' => 'sometimes|required|string',
+            'name'   => 'sometimes|required',
+            'detail' => 'sometimes|required',
             'rating' => 'sometimes|required|integer|min:1|max:5',
             'photo'  => 'nullable|image',
         ]);

@@ -21,7 +21,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
+                                            <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th style="width: 200px">Option</th>
@@ -34,7 +34,7 @@
                                                 <td>
                                                     @if ($service->photo)
                                                         <img src="{{ asset('storage/' . $service->photo) }}" alt="photo"
-                                                            width="100">
+                                                            width="150">
                                                     @else
                                                         <span class="text-muted">No Image</span>
                                                     @endif
@@ -42,8 +42,8 @@
                                                 <td>{{ $service->title }}</td>
                                                 <td>{{ $service->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('services.delete', $service->id) }}" method="POST"
-                                                        style="display:inline"
+                                                    <form action="{{ route('services.delete', $service->id) }}"
+                                                        method="POST" style="display:inline"
                                                         onsubmit="return confirm('Apakah yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')

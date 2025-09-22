@@ -33,9 +33,9 @@ class ServicesBackendController extends Controller
     {
         // Validasi input
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'photo' => 'nullable|image',
         ]);
 
         $data = [
@@ -85,9 +85,9 @@ class ServicesBackendController extends Controller
         }
 
         $request->validate([
-            'title' => 'sometimes|required|string|max:255',
+            'title' => 'sometimes|required',
             'description' => 'sometimes|required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'photo' => 'nullable|image',
         ]);
 
         $service->title = $request->title;
