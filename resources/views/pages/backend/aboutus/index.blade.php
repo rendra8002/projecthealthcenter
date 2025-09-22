@@ -1,34 +1,41 @@
 @extends('layouts.backend.app')
 @section('content')
+    <style>
+        tr {
+            background-color: white;
+        }
+
+        td {
+            background-color: white;
+        }
+    </style>
     <div class="content-wrapper">
-
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Setting Halaman About</h3>
-                                <a href="{{ route('aboutus.create') }}" class="btn btn-primary float-right">Tambah Data</a>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Setting Halaman About</h3>
+                            <div class="card-tools">
+                                <a href="{{ route('aboutus.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th style="width: 250px">Photo</th>
-                                            <th>Title</th>
+                                            <th>Photo</th>
+                                            <th>Description</th>
                                             <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($aboutuses as $aboutus)
                                             <tr>
-                                                <td>1.</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>
                                                     @if ($aboutus->photo)
                                                         <img src="{{ asset('storage/' . $aboutus->photo) }}" alt="photo"
@@ -37,11 +44,10 @@
                                                         <span>null</span>
                                                     @endif
                                                 </td>
-                                                <td data-label="description">{{ $aboutus->description }}
-                                                </td>
+                                                <td>{{ $aboutus->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('aboutus.delete', $aboutus->id) }}"
-                                                        method="POST" style="display:inline">
+                                                    <form action="{{ route('aboutus.delete', $aboutus->id) }}" method="POST"
+                                                        style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"
@@ -49,33 +55,27 @@
                                                             Hapus
                                                         </button>
                                                     </form>
-
                                                     <a href="{{ route('aboutus.edit', $aboutus->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
+                                                        class="btn btn-warning btn-sm">
                                                         Edit
                                                     </a>
                                                 </td>
                                             </tr>
-
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data About Us belum tersedia</td>
+                                                <td colspan="10" class="text-center">Data About Us belum tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
     </div>
-    <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
     @include('layouts.backend.footer')
 @endsection

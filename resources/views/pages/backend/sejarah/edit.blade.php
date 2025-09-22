@@ -1,55 +1,17 @@
 @extends('layouts.backend.app')
 
 @section('content')
-
-<style>
-    /* Sidebar fix biar selalu nempel sampai bawah */
-        .main-sidebar {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            height: 100vh !important;
-            min-height: 100vh !important;
-        }
-
-        .sidebar {
-            height: 100% !important;
-            overflow-y: auto;
-        }
-
-        /* Content wrapper geser lebih jauh dari sidebar */
-        .content-wrapper {
-            min-height: 100vh !important;
-            padding: 20px !important;
-            margin-left: 300px !important;  /* lebar sidebar */
-            margin-right: 70px !important;  /* spasi kanan */
-        }
-
-        /* Bungkus konten biar lebih center */
-        .content-container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-
-        /* Jarak antar field form */
-        .card-body .form-group {
-            margin-bottom: 20px;
-        }
-
-     </style>
-<div class="content-wrapper">
-    <section class="content">
+    <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-12">
+                <div class="col-lg-8">
                     <div class="card card-primary center-card">
                         <div class="card-header">
                             <h3 class="card-title">Edit Data Sejarah</h3>
                         </div>
 
-                        <form action="{{ route('sejarah.update', $sejarahs->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('sejarah.update', $sejarahs->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -57,9 +19,11 @@
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <div class="custom-file mb-2">
-                                        <input type="file" name="photo" class="custom-file-input @error('photo') is-invalid @enderror"
-                                            id="photo" onchange="previewImage(event)">
-                                        <label class="custom-file-label" id="photo-label" for="photo">Choose file</label>
+                                        <input type="file" name="photo"
+                                            class="custom-file-input @error('photo') is-invalid @enderror" id="photo"
+                                            onchange="previewImage(event)">
+                                        <label class="custom-file-label" id="photo-label" for="photo">Choose
+                                            file</label>
                                         @error('photo')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -68,8 +32,7 @@
                                     <div class="mt-2">
                                         <img id="preview"
                                             src="{{ $sejarahs->photo ? asset('storage/' . $sejarahs->photo) : '#' }}"
-                                            alt="Preview"
-                                            class="img-thumbnail {{ $sejarahs->photo ? '' : 'd-none' }}"
+                                            alt="Preview" class="img-thumbnail {{ $sejarahs->photo ? '' : 'd-none' }}"
                                             width="150">
                                     </div>
                                 </div>
@@ -86,8 +49,8 @@
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control @error('description') is-invalid @enderror"
-                                        name="description" id="description" rows="4">{{ old('description', $sejarahs->description) }}</textarea>
+                                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
+                                        rows="4">{{ old('description', $sejarahs->description) }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -103,20 +66,5 @@
                 </div>
             </div>
         </div>
-    </section>
-</div>
-
-<script>
-    function previewImage(event) {
-        const input = event.target;
-        const preview = document.getElementById('preview');
-        const label = document.getElementById('photo-label');
-
-        if (input.files && input.files[0]) {
-            label.innerText = input.files[0].name;
-            preview.src = URL.createObjectURL(input.files[0]);
-            preview.classList.remove('d-none');
-        }
-    }
-</script>
+    </div>
 @endsection

@@ -1,20 +1,20 @@
 @extends('layouts.backend.app')
+
 @section('content')
     <div class="content-wrapper">
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Setting Halaman Partners</h3>
-                                <a href="{{ route('partners.create') }}" class="btn btn-primary float-right">Tambah Data</a>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Daftar Partners</h3>
+                            <div class="card-tools">
+                                <a href="{{ route('partners.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                             </div>
-                            <!-- /.card-header -->
-
-                            <div class="card-body">
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -32,26 +32,24 @@
                                                 <td>
                                                     @if ($partner->photo)
                                                         <img src="{{ asset('storage/' . $partner->photo) }}" alt="photo"
-                                                             width="100">
+                                                            width="100">
                                                     @else
-                                                        <span class="text-muted">No Image</span>
+                                                        <span class="text-muted text-center">No Image</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $partner->name }}</td>
                                                 <td>{{ $partner->description }}</td>
                                                 <td class="action">
                                                     <form action="{{ route('partners.delete', $partner->id) }}"
-                                                          method="POST" style="display:inline"
-                                                          onsubmit="return confirm('Apakah yakin ingin menghapus?')">
+                                                        method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">
                                                             Hapus
                                                         </button>
                                                     </form>
-
                                                     <a href="{{ route('partners.edit', $partner->id) }}"
-                                                       class="btn btn-warning btn-sm ml-2">
+                                                        class="btn btn-warning btn-sm ml-2">
                                                         Edit
                                                     </a>
                                                 </td>
@@ -64,13 +62,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('layouts.backend.footer')
 @endsection

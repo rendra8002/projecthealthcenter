@@ -1,20 +1,22 @@
 @extends('layouts.backend.app')
 @section('content')
     <div class="content-wrapper">
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Setting Halaman Services</h3>
-                                <a href="{{ route('services.create') }}" class="btn btn-primary float-right">Tambah Data</a>
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-lg-12 ">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Setting Halaman Services</h3>
+                            {{-- Menggunakan card-tools untuk menempatkan tombol di kanan --}}
+                            <div class="card-tools">
+                                <a href="{{ route('services.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                             </div>
-                            <!-- /.card-header -->
+                        </div>
+                        <!-- /.card-header -->
 
-                            <div class="card-body">
+                        {{-- Menambahkan class p-0 untuk menghilangkan padding --}}
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -40,8 +42,8 @@
                                                 <td>{{ $service->title }}</td>
                                                 <td>{{ $service->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('services.delete', $service->id) }}"
-                                                        method="POST" style="display:inline"
+                                                    <form action="{{ route('services.delete', $service->id) }}" method="POST"
+                                                        style="display:inline"
                                                         onsubmit="return confirm('Apakah yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
@@ -64,16 +66,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
-            <!-- /.container-fluid -->
         </div>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
     @include('layouts.backend.footer')
 @endsection

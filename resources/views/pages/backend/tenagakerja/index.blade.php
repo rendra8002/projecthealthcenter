@@ -1,22 +1,20 @@
 @extends('layouts.backend.app')
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Our Doctors</h3>
-                                <a href="{{ route('tenagakerja.create') }}" class="btn btn-primary float-right">Tambah
-                                    Data</a>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Our Doctors</h3>
+                            <div class="card-tools">
+                                <a href="{{ route('tenagakerja.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                             </div>
-                            <!-- /.card-header -->
-
-                            <div class="card-body">
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -30,9 +28,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($tenagakerjas as $index => $tenagakerja)
+                                        @forelse ($tenagakerjas as $tenagakerja)
                                             <tr>
-                                                <td>{{ $index + 1 }}.</td>
+                                                <td>{{ $loop->iteration }}.</td>
                                                 <td>
                                                     @if ($tenagakerja->photo)
                                                         <img src="{{ asset('storage/' . $tenagakerja->photo) }}"
@@ -47,11 +45,11 @@
                                                 <td>{{ $tenagakerja->email }}</td>
                                                 <td class="action">
                                                     <form action="{{ route('tenagakerja.delete', $tenagakerja->id) }}"
-                                                        method="POST" style="display:inline">
+                                                        method="POST" style="display:inline"
+                                                        onsubmit="return confirm('Apakah yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                        <button type="submit" class="btn btn-danger btn-sm">
                                                             Hapus
                                                         </button>
                                                     </form>
@@ -69,15 +67,36 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
+            </div>
+        </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-wrapper -->
-@include('layouts.backend.footer')
+    @include('layouts.backend.footer')
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
