@@ -16,10 +16,10 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th>Nama Depan</th>
-                                            <th>Nama Belakang</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>Email</th>
-                                            <th style="width: 200px">Opsi</th>
+                                            <th style="width: 200px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
