@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name')->nullable(); // nama orang yang kasih testimonial
             $table->text('detail')->nullable(); // isi testimonial
             $table->unsignedTinyInteger('rating')->default(5)->nullable(); // rating 1-5
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
         });
     }

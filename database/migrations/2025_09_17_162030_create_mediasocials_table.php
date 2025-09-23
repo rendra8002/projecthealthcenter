@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name_account')->nullable();               // nama akun
             $table->string('link')->nullable();                       // link akun
             $table->string('name_mediasocial')->nullable(); 
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
         });
     }
