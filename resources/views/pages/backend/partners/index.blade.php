@@ -22,7 +22,7 @@
                                             <th style="width: 200px">Photo</th>
                                             <th>Name</th>
                                             <th>Description</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -32,7 +32,7 @@
                                                 <td>
                                                     @if ($partner->photo)
                                                         <img src="{{ asset('storage/' . $partner->photo) }}" alt="photo"
-                                                            width="150">
+                                                            class="rounded-circle mr-2" width="150" height="150">>
                                                     @else
                                                         <span class="text-muted text-center">No Image</span>
                                                     @endif
@@ -40,18 +40,29 @@
                                                 <td>{{ $partner->name }}</td>
                                                 <td>{{ $partner->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('partners.delete', $partner->id) }}"
-                                                        method="POST" style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                    <a href="{{ route('partners.edit', $partner->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <form action="{{ route('partners.delete', $partner->id) }}"
+                                                            method="POST" style="display:inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
+                                                        <a href="{{ route('partners.edit', $partner->id) }}"
+                                                            class="btn btn-warning btn-sm ml-2">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <label class="toggle-switch mb-0">
+                                                            <input type="checkbox" class="toggle-status"
+                                                                data-id="{{ $partner->id }}"
+                                                                {{ $partner->status === 'active' ? 'checked' : '' }}>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -68,4 +79,35 @@
             </div>
         </div>
     </div>
+    @include('layouts.backend.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let partnerId = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
+
+            $.ajax({
+                url: "{{ route('partners.toggle-status', ['id' => ':id']) }}".replace(':id', partnerId),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status partner berhasil diubah menjadi: " + res.status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(
+                            ':checked')); // balikin toggle kalau gagal
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                }
+            });
+        });
+    </script>
 @endsection

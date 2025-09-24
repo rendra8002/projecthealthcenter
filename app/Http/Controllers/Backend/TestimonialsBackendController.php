@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class TestimonialsBackendController extends Controller
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $testimonial = testimonials::find($id);
+
+        if (!$testimonial) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.']);
+        }
+
+        $testimonial->status = $request->status;
+        $testimonial->save();
+
+        return response()->json(['success' => true]);
+    }
+
     /**
      * Display a listing of the resource.
      */

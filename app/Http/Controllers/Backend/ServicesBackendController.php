@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\Storage;
 
 class ServicesBackendController extends Controller
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $service = Services::find($id);
+
+        if (!$service) {
+            return response()->json(['success' => false, 'message' => 'Service tidak ditemukan.']);
+        }
+
+        $service->status = $request->status;
+        $service->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
     /**
      * Display a listing of the resource.
      */

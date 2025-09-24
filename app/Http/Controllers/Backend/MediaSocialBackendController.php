@@ -8,6 +8,30 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaSocialBackendController
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $mediasocial = Mediasocial::find($id);
+
+        if (!$mediasocial) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
+        $mediasocial->status = $request->status;
+        $mediasocial->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diubah.',
+            'status'  => $mediasocial->status
+        ]);
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      */

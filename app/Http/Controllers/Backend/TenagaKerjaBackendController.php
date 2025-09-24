@@ -9,6 +9,35 @@ use Illuminate\Support\Facades\Storage;
 
 class TenagaKerjaBackendController extends Controller
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $tenagakerja = tenagakerja::find($id);
+
+        if (!$tenagakerja) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
+
+        try {
+            $tenagakerja->status = $request->status;
+            $tenagakerja->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status berhasil diubah',
+                'status' => $tenagakerja->status,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengubah status.',
+            ]);
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      */

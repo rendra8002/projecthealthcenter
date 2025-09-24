@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="owl-carousel owl-theme">
-                    @foreach ($heroes as $hero)
+                    @forelse ($heroes as $hero)
                         <div class="item"
                             style="background-image: url('{{ $hero->photo ? asset('storage/' . $hero->photo) : asset('assets/default.jpg') }}');">
                             <div class="caption">
@@ -18,7 +18,20 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="item"
+                            style="background-image: url('{{ asset('assets/default.jpg') }}'); min-height:400px;">
+                            <div class="caption">
+                                <div class="col-md-offset-1 col-md-10 text-center">
+                                    <h3>subtitle kosong</h3>
+                                    <h1>title kososng</h1>
+                                    <a href="#about" class="section-btn btn btn-default smoothScroll">
+                                        Learn More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -33,14 +46,18 @@
             <div class="row">
                 @if ($about)
                     <div class="col-md-6 col-sm-6">
+                        <h2 class="wow fadeInUp" data-wow-delay="0.6s">
+                            Welcome to Your <i class="fa fa-h-square"></i>ealth Center
+                        </h2>
                         <div class="about-info">
-                            <h2 class="wow fadeInUp" data-wow-delay="0.6s">
-                                Welcome to Your <i class="fa fa-h-square"></i>ealth Center
-                            </h2>
                             <div class="wow fadeInUp" data-wow-delay="0.8s">
                                 <p>{{ $about->description }}</p>
                             </div>
                         </div>
+                    </div>
+                @else
+                    <div class="col-md-6 col-sm-6">
+                        <p class="text-white">Belum ada data about.</p>
                     </div>
                 @endif
             </div>
@@ -48,7 +65,7 @@
         <br>
     </section>
 
-    <!-- Tenaga kerja -->
+    <!-- TEAM -->
     <section id="team" data-stellar-background-ratio="1">
         <div class="container">
             <div class="row">
@@ -61,36 +78,30 @@
 
                 <div class="clearfix"></div>
 
-                @foreach ($teams as $team)
+                @forelse ($teams as $team)
                     <div class="col-md-4 col-sm-6">
                         <div class="team-thumb wow fadeInUp" data-wow-delay="0.{{ $loop->iteration * 2 }}s">
-                            <img src="{{ $team->photo ? asset('storage/' . $team->photo) : asset('assets/images/default-team.jpg') }}"
+                            <img src="{{ $team->photo ? asset('storage/' . $team->photo) : asset('assets/images/default-bg.jpg') }}"
                                 class="img-responsive" alt="{{ $team->name }}">
 
                             <div class="team-info">
                                 <h3>{{ $team->name }}</h3>
                                 <p>{{ $team->speciality }}</p>
-                                <div class="team-contact-info">
-                                    @if ($team->phone)
-                                        <p><i class="fa fa-phone"></i> {{ $team->phone }}</p>
-                                    @endif
-                                    @if ($team->email)
-                                        <p><i class="fa fa-envelope-o"></i>
-                                            <a href="mailto:{{ $team->email }}">{{ $team->email }}</a>
-                                        </p>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada data dokter.</p>
+                    </div>
+                @endforelse
 
             </div>
         </div>
         <br>
     </section>
 
-    <!-- galery -->
+    <!-- GALLERY -->
     <section id="gallery">
         <div class="container">
             <div class="row">
@@ -100,7 +111,7 @@
                     </div>
                 </div>
 
-                @foreach ($galleries as $gal)
+                @forelse ($galleries as $gal)
                     <div class="col-md-4 col-sm-6">
                         <div class="news-thumb">
                             <img src="{{ asset('storage/' . $gal->photo) }}" class="img-responsive" alt="">
@@ -110,7 +121,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada gallery yang ditambahkan.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -127,7 +142,7 @@
             </div>
             <div class="row">
 
-                @foreach ($testimonials as $testi)
+                @forelse ($testimonials as $testi)
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 text-center p-3">
                             <img src="{{ $testi->photo ? asset('storage/' . $testi->photo) : asset('assets/images/default-user.png') }}"
@@ -142,7 +157,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada testimoni.</p>
+                    </div>
+                @endforelse
 
             </div>
         </div>
@@ -162,7 +181,7 @@
                     </div>
                 </div>
 
-                @foreach ($services as $index => $service)
+                @forelse ($services as $index => $service)
                     <div class="col-md-4 col-sm-6">
                         <div class="service-thumb wow fadeInUp" data-wow-delay="{{ 0.2 + $index * 0.2 }}s">
                             <img src="{{ $service->photo ? asset('storage/' . $service->photo) : asset('assets/images/default-service.jpg') }}"
@@ -173,16 +192,18 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada service yang ditambahkan.</p>
+                    </div>
+                @endforelse
 
             </div>
         </div>
         <br><br><br>
     </section>
 
-
-
-    <!-- sejarh -->
+    <!-- SEJARAH -->
     <section id="sejarah" data-stellar-background-ratio="0.5">
         <br>
         <div class="container">
@@ -191,7 +212,7 @@
                 <div class="col-md-8 col-sm-7">
                     <div class="news-detail-thumb">
                         <div class="news-image">
-                            <img src="{{ $sejarah && $sejarah->photo ? asset('storage/' . $sejarah->photo) : asset('assets/images/news-image3.jpg') }}"
+                            <img src="{{ $sejarah && $sejarah->photo ? asset('storage/' . $sejarah->photo) : asset('assets/default.jpg') }}"
                                 class="img-responsive" alt="">
                         </div>
                         <br>
@@ -201,26 +222,15 @@
                 <div class="col-md-4 col-sm-5">
                     <div class="news-sidebar">
                         <div class="news-author">
-                            <h4>{{ $sejarah->title ?? 'About the author' }}</h4>
+                            <h4>{{ $sejarah->title ?? 'Sejarah Klinik' }}</h4>
                             <p>{{ $sejarah->description ?? 'Belum ada deskripsi sejarah.' }}</p>
                         </div>
-                        {{-- 
-                        <div class="news-tags">
-                            <h4>Tags</h4>
-                            <li><a href="#">Pregnancy</a></li>
-                            <li><a href="#">Health</a></li>
-                            <li><a href="#">Consultant</a></li>
-                            <li><a href="#">Medical</a></li>
-                            <li><a href="#">Doctors</a></li>
-                            <li><a href="#">Social</a></li>
-                        </div> --}}
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-
 
     <!-- PARTNERS -->
     <section id="partners" data-stellar-background-ratio="1">
@@ -248,8 +258,8 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-md-12">
-                        <p class="text-center">Belum ada partner yang ditambahkan.</p>
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada partner yang ditambahkan.</p>
                     </div>
                 @endforelse
 
@@ -264,7 +274,7 @@
             <div class="row">
 
                 <div class="col-md-6 col-sm-6">
-                    <img src="{{ asset('assets/images/appointment-image.jpg') }}" class="img-responsive" alt="">
+                    <img src="{{ asset('assets/default.jpg') }}" class="img-responsive" alt="">
                 </div>
 
                 <div class="col-md-6 col-sm-6">
@@ -275,7 +285,7 @@
                         </div>
                     @endif
 
-                    <!-- ALERT ERROR (kalau validasi gagal) -->
+                    <!-- ALERT ERROR -->
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -286,11 +296,9 @@
                         </div>
                     @endif
 
-                    <!-- CONTACT FORM HERE -->
-                    <form id="appointment-form" role="form" method="post"
-                        action="{{ route('fronthero.store') }}">
+                    <!-- CONTACT FORM -->
+                    <form id="appointment-form" role="form" method="post" action="{{ route('fronthero.store') }}">
                         @csrf
-                        <!-- SECTION TITLE -->
                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
                             <h2>Make an appointment</h2>
                         </div>
@@ -301,35 +309,28 @@
                                 <input type="text" class="form-control" id="first_name" name="first_name"
                                     placeholder="first Name">
                             </div>
-                            <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name"
-                                        placeholder="Last Name">
-                                </div>
-
-                                <div class="col-md-12 col-sm-6">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Your Email">
-                                </div>
-
-                                <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                    <div class="col-md-12 col-sm-6">
-                                        <label for="subject">Subject</label>
-                                        <input type="text" class="form-control" id="subject" name="subject"
-                                            placeholder="Subject">
-                                    </div>
-
-
-
-                                    <div class="col-md-12 col-sm-12">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description"></textarea>
-                                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit
-                                            Button</button>
-                                    </div>
-                                </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                    placeholder="Last Name">
+                            </div>
+                            <div class="col-md-12 col-sm-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Your Email">
+                            </div>
+                            <div class="col-md-12 col-sm-6">
+                                <label for="subject">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject"
+                                    placeholder="Subject">
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description"></textarea>
+                                <button type="submit" class="form-control" id="cf-submit" name="submit">Submit
+                                    Button</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -339,12 +340,6 @@
 
     <!-- GOOGLE MAP -->
     <section id="contact">
-        <!-- How to change your own map point
-                                                                                                                    1. Go to Google Maps
-                                                                                                                    2. Click on your location point
-                                                                                                                    3. Click "Share" and choose "Embed map" tab
-                                                                                                                    4. Copy only URL and paste it within the src="" field below
-                                                                                                         -->
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945"
             width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>

@@ -22,7 +22,7 @@
                                             <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Description</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -32,7 +32,7 @@
                                                 <td>
                                                     @if ($sejarah->photo)
                                                         <img src="{{ asset('storage/' . $sejarah->photo) }}" alt="photo"
-                                                            width="150">
+                                                            class="rounded-circle mr-2" width="150" height="150">>
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -40,20 +40,31 @@
                                                 <td>{{ $sejarah->title }}</td>
                                                 <td>{{ Str::limit($sejarah->description, 100) }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('sejarah.delete', $sejarah->id) }}"
-                                                        method="POST" style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
+                                                    <div class="d-flex justify-content-center">
+                                                        <form action="{{ route('sejarah.delete', $sejarah->id) }}"
+                                                            method="POST" style="display:inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
 
-                                                    <a href="{{ route('sejarah.edit', $sejarah->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
+                                                        <a href="{{ route('sejarah.edit', $sejarah->id) }}"
+                                                            class="btn btn-warning btn-sm ml-2">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <label class="toggle-switch mb-0">
+                                                            <input type="checkbox" class="toggle-status"
+                                                                data-id="{{ $sejarah->id }}"
+                                                                {{ $sejarah->status === 'active' ? 'checked' : '' }}>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -70,4 +81,34 @@
             </div>
         </div>
     </div>
+    @include('layouts.backend.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let sejarahId = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
+
+            $.ajax({
+                url: "{{ route('sejarah.toggle-status', ['id' => ':id']) }}".replace(':id', sejarahId),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status berhasil diubah menjadi: " + status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(':checked'));
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked'));
+                }
+            });
+        });
+    </script>
 @endsection

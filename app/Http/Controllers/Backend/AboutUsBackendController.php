@@ -9,6 +9,29 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutUsBackendController extends Controller
 {
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $aboutus = aboutus::find($id);
+
+        if (!$aboutus) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $aboutus->status = $request->status;
+        $aboutus->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diubah'
+        ]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */

@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryBackendController
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $gallery = gallery::find($id);
+
+        if (!$gallery) {
+            return response()->json(['success' => false, 'message' => 'Gallery tidak ditemukan.']);
+        }
+
+        $gallery->status = $request->status;
+        $gallery->save();
+
+        return response()->json(['success' => true, 'status' => $gallery->status]);
+    }
+
+
     /**
      * Display a listing of the resource.
      */

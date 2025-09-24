@@ -26,6 +26,12 @@ http://www.tooplate.com/view/2098-health
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/tooplate-style.css') }}">
+
+    <style>
+        .rounded-circle{
+            border-radius: 50px
+        };
+    </style>
 </head>
 
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">

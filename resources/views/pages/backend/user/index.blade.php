@@ -24,7 +24,7 @@
                                             <th style="width: 200px">Photo</th>
                                             <th>Username</th>
                                             <th>Email</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,7 +34,7 @@
                                                 <td>
                                                     @if ($user->photo)
                                                         <img src="{{ asset('storage/' . $user->photo) }}" alt="photo"
-                                                            width="150">
+                                                            class="rounded-circle mr-2" width="150" height="150">
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -42,20 +42,33 @@
                                                 <td data-label="title">{{ $user->username }}</td>
                                                 <td data-label="header">{{ $user->email }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('user.delete', $user->id) }}" method="POST"
-                                                        style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                    <a href="{{ route('user.edit', $user->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
-                                                    
+                                                    @if ($user->email === 'adminraja.gmail.com')
+                                                        <span class="badge bg-primary">Superadmin</span>
+                                                    @else
+                                                        <div class="d-flex justify-content-center mt-2">
+                                                            <form action="{{ route('user.delete', $user->id) }}"
+                                                                method="POST" style="display:inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                                    onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                                    Hapus
+                                                                </button>
+                                                            </form>
+                                                            <a href="{{ route('user.edit', $user->id) }}"
+                                                                class="btn btn-warning btn-sm ml-2">
+                                                                Edit
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center mt-2">
+                                                            <label class="toggle-switch mb-0">
+                                                                <input type="checkbox" class="toggle-status"
+                                                                    data-id="{{ $user->id }}"
+                                                                    {{ $user->status === 'active' ? 'checked' : '' }}>
+                                                                <span class="toggle-slider"></span>
+                                                            </label>
+                                                        </div>
+                                                    @endif
                                                 </td>
                                             </tr>
 
@@ -74,4 +87,33 @@
         </div>
     </div>
     @include('layouts.backend.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let userId = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
+
+            $.ajax({
+                url: "{{ route('user.toggle-status', ['id' => ':id']) }}".replace(':id', userId),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status user berhasil diubah menjadi: " + status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                }
+            });
+        });
+    </script>
 @endsection

@@ -16,7 +16,60 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
 
+    {{-- totogelan --}}
     <style>
+        /* Toggle Switch Custom */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 25px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.toggle-slider {
+            background-color: #28a745;
+            /* hijau success */
+        }
+
+        input:checked+.toggle-slider:before {
+            transform: translateX(24px);
+        }
+    </style>
+
+
+    <style>
+        
+
         /* Sidebar tetap nempel */
         .main-sidebar {
             position: fixed !important;
@@ -102,6 +155,10 @@
             }
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
 </body>
 
 </html>

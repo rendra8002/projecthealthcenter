@@ -29,14 +29,6 @@
                                 <h6 class="text-muted">Description</h6>
                                 <p>{{ $appointment->description }}</p>
                             </div>
-                            <div class="mb-3">
-                                <h6 class="text-muted">Status</h6>
-                                @if ($appointment->status == 'active')
-                                    <span class="badge badge-success">Active</span>
-                                @else
-                                    <span class="badge badge-secondary">Inactive</span>
-                                @endif
-                            </div>
 
                             <div class="text-right mt-4">
                                 <a href="{{ route('appointment.index') }}" class="btn btn-secondary">Back</a>

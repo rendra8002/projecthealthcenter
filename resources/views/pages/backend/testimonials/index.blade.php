@@ -7,12 +7,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Halaman Testimonial</h3>
-                            <a href="{{ route('testimonials.create') }}" class="btn btn-primary float-right">Tambah
-                                Data</a>
+                            <a href="{{ route('testimonials.create') }}" class="btn btn-primary float-right">Tambah Data</a>
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="table responsive" style="max-height: 400px; overflow-y: auto;">
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -21,17 +19,18 @@
                                             <th>Name</th>
                                             <th>Detail</th>
                                             <th>Rating</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($testimonials as $index => $testimonial)
                                             <tr>
-                                                <td>{{ $index + 1 }}.</td>
+                                                <td>{{ $index + 1 }}</td>
                                                 <td>
                                                     @if ($testimonial->photo)
                                                         <img src="{{ asset('storage/' . $testimonial->photo) }}"
-                                                            alt="photo" width="150">
+                                                            alt="photo" class="rounded-circle mr-2" width="150"
+                                                            height="150">>
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -49,20 +48,30 @@
                                                     @endfor
                                                 </td>
                                                 <td class="action">
-                                                    <form action="{{ route('testimonials.delete', $testimonial->id) }}"
-                                                        method="POST" style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <form action="{{ route('testimonials.delete', $testimonial->id) }}"
+                                                            method="POST" style="display:inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
 
-                                                    <a href="{{ route('testimonials.edit', $testimonial->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
+                                                        <a href="{{ route('testimonials.edit', $testimonial->id) }}"
+                                                            class="btn btn-warning btn-sm ml-2">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <label class="toggle-switch mb-0">
+                                                            <input type="checkbox" class="toggle-status"
+                                                                data-id="{{ $testimonial->id }}"
+                                                                {{ $testimonial->status === 'active' ? 'checked' : '' }}>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -80,4 +89,34 @@
         </div>
     </div>
     @include('layouts.backend.footer')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let id = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
+
+            $.ajax({
+                url: "{{ route('testimonials.toggle-status', ['id' => ':id']) }}".replace(':id', id),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status testimonial berhasil diubah menjadi: " + status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked'));
+                }
+            });
+        });
+    </script>
 @endsection

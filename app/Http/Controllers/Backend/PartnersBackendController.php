@@ -8,6 +8,28 @@ use Illuminate\Support\Facades\Storage;
 
 class PartnersBackendController
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $partner = Partner::find($id);
+
+        if (!$partner) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Partner tidak ditemukan.'
+            ], 404);
+        }
+
+        $partner->status = $request->status;
+        $partner->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status partner berhasil diubah.',
+            'status' => $partner->status
+        ]);
+    }
+
+
     public function index()
     {
         $partners = Partner::all();

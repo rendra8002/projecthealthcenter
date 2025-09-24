@@ -24,7 +24,7 @@
                                             <th>Speciality</th>
                                             <th>Phone</th>
                                             <th>Email</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,7 +34,8 @@
                                                 <td>
                                                     @if ($tenagakerja->photo)
                                                         <img src="{{ asset('storage/' . $tenagakerja->photo) }}"
-                                                            alt="photo" width="150">
+                                                            alt="photo" class="rounded-circle mr-2" width="150"
+                                                            height="150">>
                                                     @else
                                                         <span class="text-muted">No Image</span>
                                                     @endif
@@ -44,20 +45,31 @@
                                                 <td>{{ $tenagakerja->phone }}</td>
                                                 <td>{{ $tenagakerja->email }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('tenagakerja.delete', $tenagakerja->id) }}"
-                                                        method="POST" style="display:inline"
-                                                        onsubmit="return confirm('Apakah yakin ingin menghapus?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                    <a href="{{ route('tenagakerja.edit', $tenagakerja->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <form action="{{ route('tenagakerja.delete', $tenagakerja->id) }}"
+                                                            method="POST" style="display:inline"
+                                                            onsubmit="return confirm('Apakah yakin ingin menghapus?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
+                                                        <a href="{{ route('tenagakerja.edit', $tenagakerja->id) }}"
+                                                            class="btn btn-warning btn-sm ml-2">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <label class="toggle-switch mb-0">
+                                                            <input type="checkbox" class="toggle-status"
+                                                                data-id="{{ $tenagakerja->id }}"
+                                                                {{ $tenagakerja->status === 'active' ? 'checked' : '' }}>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
+
                                             </tr>
                                         @empty
                                             <tr>
@@ -77,26 +89,33 @@
     </div>
     <!-- /.content-wrapper -->
     @include('layouts.backend.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let tenagaId = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus data ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
-                </div>
-            </div>
-        </div>
-    </div>
+            $.ajax({
+                url: "{{ route('tenagakerja.toggle-status', ['id' => ':id']) }}".replace(':id', tenagaId),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status dokter berhasil diubah menjadi: " + status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                }
+            });
+        });
+    </script>
 @endsection

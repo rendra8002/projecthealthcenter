@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class HeroBackendController extends Controller
 {
+    public function toggleStatus(Request $request, $id)
+    {
+        $hero = Hero::find($id);
+
+        if (!$hero) {
+            return response()->json(['success' => false, 'message' => 'Hero tidak ditemukan.']);
+        }
+
+        $hero->status = $request->status;
+        $hero->save();
+
+        return response()->json(['success' => true, 'status' => $hero->status]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */

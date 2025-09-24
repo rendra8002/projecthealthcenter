@@ -9,6 +9,30 @@ use Illuminate\Support\Facades\Storage;
 
 class SejarahBackendController extends Controller
 {
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $sejarah = Sejarah::find($id);
+
+        if (!$sejarah) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan'], 404);
+        }
+
+        try {
+            $sejarah->status = $request->status;
+            $sejarah->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status berhasil diperbarui',
+                'status'  => $sejarah->status
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui status'], 500);
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      */

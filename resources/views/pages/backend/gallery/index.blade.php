@@ -23,7 +23,7 @@
                                             <th style="width: 200px">Photo</th>
                                             <th>Title</th>
                                             <th>Description</th>
-                                            <th style="width: 200px">Option</th>
+                                            <th style="width: 150px">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -33,7 +33,7 @@
                                                 <td>
                                                     @if ($gallery->photo)
                                                         <img src="{{ asset('storage/' . $gallery->photo) }}" alt="photo"
-                                                            width="150">
+                                                            class="rounded-circle mr-2" width="150" height="150">>
                                                     @else
                                                         <span>null</span>
                                                     @endif
@@ -41,20 +41,30 @@
                                                 <td data-label="title">{{ $gallery->title }}</td>
                                                 <td data-label="description">{{ $gallery->description }}</td>
                                                 <td class="action">
-                                                    <form action="{{ route('gallery.delete', $gallery->id) }}"
-                                                        method="POST" style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah yakin ingin menghapus?')">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <form action="{{ route('gallery.delete', $gallery->id) }}"
+                                                            method="POST" style="display:inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Apakah yakin ingin menghapus?')">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
 
-                                                    <a href="{{ route('gallery.edit', $gallery->id) }}"
-                                                        class="btn btn-warning btn-sm ml-2">
-                                                        Edit
-                                                    </a>
+                                                        <a href="{{ route('gallery.edit', $gallery->id) }}"
+                                                            class="btn btn-warning btn-sm ml-2">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mt-2">
+                                                        <label class="toggle-switch mb-0">
+                                                            <input type="checkbox" class="toggle-status"
+                                                                data-id="{{ $gallery->id }}"
+                                                                {{ $gallery->status === 'active' ? 'checked' : '' }}>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -71,4 +81,34 @@
             </div>
         </div>
     </div>
+    @include('layouts.backend.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('change', '.toggle-status', function() {
+            let checkbox = $(this);
+            let galleryId = checkbox.data('id');
+            let status = checkbox.is(':checked') ? 'active' : 'inactive';
+
+            $.ajax({
+                url: "{{ route('gallery.toggle-status', ['id' => ':id']) }}".replace(':id', galleryId),
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        alert("✅ Status galeri berhasil diubah menjadi: " + res.status);
+                    } else {
+                        alert(res.message);
+                        checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                    }
+                },
+                error: function() {
+                    alert("❌ Terjadi kesalahan saat mengubah status.");
+                    checkbox.prop('checked', !checkbox.is(':checked')); // balikin toggle
+                }
+            });
+        });
+    </script>
 @endsection

@@ -9,6 +9,27 @@ use Illuminate\Support\Facades\Storage;
 
 class UserBackendController extends Controller
 {
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User tidak ditemukan']);
+        }
+
+        if ($user->email === 'adminraja@gmail.com') {
+            return response()->json(['success' => false, 'message' => 'Superadmin tidak bisa diubah']);
+        }
+
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */
@@ -138,6 +159,4 @@ class UserBackendController extends Controller
 
         return redirect()->route('user.index')->with('error', 'Hero tidak ditemukan.');
     }
-
-    
 }
